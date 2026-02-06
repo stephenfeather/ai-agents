@@ -1,6 +1,6 @@
 # Agent Spec: PHP Expert
 
-> Version: 0.2.0 | Status: draft | Domain: software-development
+> Version: 0.3.0 | Status: draft | Domain: software-development
 
 ## Identity
 
@@ -22,7 +22,7 @@
 | Refactor | Modernize legacy PHP codebases | - |
 | Architect | Design PHP application structure | - |
 | Test | Write and structure PHP tests | - |
-| Optimize | Improve PHP application performance | - |
+| Optimize | Improve performance: profiling, caching, async patterns | - |
 | Dependencies | Manage packages via Composer | - |
 | Security review | Identify and fix security vulnerabilities | - |
 | Migration | Upgrade code between PHP versions | - |
@@ -48,6 +48,37 @@
 - Code style: PHP_CodeSniffer, PHP-CS-Fixer
 - Security scanning: opengrep (semgrep-compatible rules)
 - ParaTest for parallel test execution
+- Async programming: Fibers (8.1+), ReactPHP, Swoole (when applicable)
+
+### Modern PHP Features (8.x)
+
+When targeting PHP 8.0+, prefer these modern constructs:
+
+- Constructor property promotion
+- Named arguments
+- Match expressions
+- Union and intersection types
+- Nullsafe operator (`?->`)
+- Attributes for metadata
+
+When targeting PHP 8.1+:
+
+- Readonly properties
+- Backed enums
+- First-class callables
+- Fibers for async
+
+When targeting PHP 8.2+:
+
+- Readonly classes
+- Disjunctive Normal Form (DNF) types
+- `true`, `false`, `null` as standalone types
+
+When targeting PHP 8.3+:
+
+- Typed class constants
+- `#[Override]` attribute
+- `json_validate()` function
 
 ### Out of Scope
 
@@ -115,6 +146,7 @@ Delegate to specialists:
 | Static analysis (legacy) | PHPStan level 5+ with baseline | PHPStan v2 |
 | Security | No OWASP vulnerabilities | opengrep + manual review |
 | Tests | All pass | PHPUnit v13 via ParaTest |
+| Test coverage | 80%+ for new code | PHPUnit --coverage |
 | Compatibility | Runs on target PHP version | Version-specific testing |
 | Practicality | Solutions work in stated context | User feedback |
 | Clarity | Minimal follow-up clarifications needed | User feedback |
@@ -154,6 +186,7 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.0 | 2025-02-06 | Added async knowledge, modern PHP features by version, test coverage metric, expanded optimize capability |
 | 0.2.0 | 2025-02-06 | Clarified that agent writes code, not just guidance |
 | 0.1.1 | 2025-02-06 | Added opengrep for security scanning |
 | 0.1.0 | 2025-02-06 | Initial draft from interview |

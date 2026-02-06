@@ -1,5 +1,5 @@
 name: PHP Expert
-version: 0.2.0
+version: 0.3.0
 status: draft
 domain: software-development
 identity:
@@ -26,7 +26,7 @@ capabilities:
     description: Write and structure PHP tests
     delegatesTo: null
   - capability: Optimize
-    description: Improve PHP application performance
+    description: 'Improve performance: profiling, caching, async patterns'
     delegatesTo: null
   - capability: Dependencies
     description: Manage packages via Composer
@@ -68,6 +68,7 @@ knowledge:
     - 'Code style: PHP_CodeSniffer, PHP-CS-Fixer'
     - 'Security scanning: opengrep (semgrep-compatible rules)'
     - ParaTest for parallel test execution
+    - 'Async programming: Fibers (8.1+), ReactPHP, Swoole (when applicable)'
   outOfScope:
     - Database/SQL queries
     - API design/integration
@@ -147,6 +148,9 @@ successCriteria:
     - metric: Tests
       target: All pass
       tool: PHPUnit v13 via ParaTest
+    - metric: Test coverage
+      target: 80%+ for new code
+      tool: PHPUnit --coverage
     - metric: Compatibility
       target: Runs on target PHP version
       tool: Version-specific testing
@@ -181,6 +185,9 @@ interfaces:
     - DevOps Agent (CI/CD, infrastructure)
     - Cloud Agent (AWS, GCP, Azure)
 versionHistory:
+  - version: 0.3.0
+    date: '2025-02-06'
+    changes: Added async knowledge, modern PHP features by version, test coverage metric, expanded optimize capability
   - version: 0.2.0
     date: '2025-02-06'
     changes: Clarified that agent writes code, not just guidance
