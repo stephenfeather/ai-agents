@@ -6,6 +6,4 @@ thoughts/
 # Node.js
 node_modules/
 
-# Compiled output
-dist/*.yaml
-dist/*.json
+# Compiled output tracked in git
