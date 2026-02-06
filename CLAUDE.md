@@ -34,6 +34,10 @@ Copy `SPEC-TEMPLATE.md` and fill in sections manually.
 - Canonical format: Markdown
 - Generated outputs: YAML, JSON, LLM-specific prompts (not yet implemented)
 
+### Output Directory
+- Compiled specs are placed in `dist/`
+- Source specs remain in their `ai-agent-*/` directories
+
 ### Versioning
 - Use semantic versioning (major.minor.patch)
 - Update version in header AND version history table
