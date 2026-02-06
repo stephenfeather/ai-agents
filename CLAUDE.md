@@ -86,6 +86,39 @@ Reference issues in commits when applicable.
 
 Do NOT use local task lists, todo.md files, or in-memory task tracking.
 
+### Issue Lifecycle
+
+Update labels and status as work progresses:
+
+| Stage | Action |
+|-------|--------|
+| **Created** | Add appropriate labels (`agent-spec`, `tooling`, `needs-interview`, etc.) |
+| **Starting work** | Remove `needs-interview` if interview begins; add comment noting work started |
+| **In progress** | Add comments with progress updates, decisions made |
+| **Ready for review** | Add `review` label if applicable |
+| **Completed** | Close issue with summary comment; reference closing commit |
+| **Blocked** | Add `blocked` label and comment explaining blocker |
+
+### Labels
+
+| Label | Purpose |
+|-------|---------|
+| `agent-spec` | New agent specification |
+| `tooling` | Build tools and automation |
+| `needs-interview` | Requires interview to complete spec |
+| `enhancement` | New feature or improvement |
+| `bug` | Something isn't working |
+| `blocked` | Work cannot proceed (document reason) |
+
+### Commits
+
+Reference issues in commit messages:
+```
+Add Python Expert spec
+
+Closes #1
+```
+
 ## Quality Standards
 
 When reviewing or validating specs:

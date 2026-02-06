@@ -86,4 +86,4 @@ See [`ai-agent-php/spec.md`](ai-agent-php/spec.md) for a complete example of a f
 
 ## License
 
-[To be determined]
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
