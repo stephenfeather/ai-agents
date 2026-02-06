@@ -1,0 +1,25 @@
+{
+  "name": "ai-agent-spec-converter",
+  "version": "1.0.0",
+  "description": "Convert AI agent specs from Markdown to YAML/JSON",
+  "type": "module",
+  "bin": {
+    "spec-convert": "./bin/spec-convert.js"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "ai-agent",
+    "spec",
+    "converter",
+    "markdown",
+    "yaml",
+    "json"
+  ],
+  "license": "GPL-3.0",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "js-yaml": "^4.1.0"
+  }
+}

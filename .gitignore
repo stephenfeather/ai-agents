@@ -2,3 +2,10 @@
 .tldrignore
 plans/
 thoughts/
+
+# Node.js
+node_modules/
+
+# Compiled output
+dist/*.yaml
+dist/*.json
