@@ -12,6 +12,22 @@ This project provides a structured approach to defining AI agents across any dom
 2. Fill in each section (or use interview-driven authoring)
 3. Reference `ai-agent-php/spec.md` as an example
 
+## Agent Specs
+
+| Agent | Domain | Role |
+|-------|--------|------|
+| [PHP Expert](ai-agent-php/spec.md) | software-development | Writes PHP code and provides expert guidance |
+| [ECMAScript Expert](ai-agent-ecmascript/spec.md) | software-development | ECMAScript/JavaScript/TypeScript development |
+| [Python Expert](ai-agent-python/spec.md) | software-development | Python development |
+| [Rust Expert](ai-agent-rust/spec.md) | software-development | Rust development |
+| [WordPress Expert](ai-agent-wordpress/spec.md) | site-management | WordPress site management and administration |
+| [WordPress Developer](ai-agent-wordpress-developer/spec.md) | software-development | WordPress themes, plugins, and customizations |
+| [WooCommerce Expert](ai-agent-woocommerce/spec.md) | e-commerce | WooCommerce store management and configuration |
+| [Docker Expert](ai-agent-docker/spec.md) | containerization | Docker containerization and image optimization |
+| [Database Expert](ai-agent-database/spec.md) | databases | Database design, queries, and optimization |
+| [API Expert](ai-agent-api/spec.md) | software-development | API design, documentation, and integration |
+| [Documentation Agent](ai-agent-documentation/spec.md) | technical-writing | Technical and user documentation |
+
 ## Project Structure
 
 ```
@@ -19,10 +35,8 @@ ai-agents/
 ├── spec.md              # Framework overview
 ├── SPEC-TEMPLATE.md     # Blank template for new agents
 ├── ai-agent-php/        # PHP Expert (reference implementation)
-├── ai-agent-python/     # Python Expert (planned)
-├── ai-agent-ecmascript/ # ECMAScript Expert (planned)
-├── ai-agent-wordpress/  # WordPress Expert (planned)
-└── ai-agent-woocommerce/# WooCommerce Expert (planned)
+├── ai-agent-*/          # Additional agent specifications
+└── dist/                # Compiled outputs (generated)
 ```
 
 ## Spec Components
