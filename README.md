@@ -27,6 +27,7 @@ This project provides a structured approach to defining AI agents across any dom
 | [Database Expert](ai-agent-database/spec.md) | databases | Database design, queries, and optimization |
 | [API Expert](ai-agent-api/spec.md) | software-development | API design, documentation, and integration |
 | [Documentation Agent](ai-agent-documentation/spec.md) | technical-writing | Technical and user documentation |
+| [Coordinator Agent](ai-agent-coordinator/spec.md) | orchestration | Orchestrates multi-agent workflows and delegates to specialists |
 
 ## Project Structure
 
