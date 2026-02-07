@@ -19,6 +19,7 @@ This project provides a structured approach to defining AI agents across any dom
 | [PHP Expert](ai-agent-php/spec.md) | software-development | Writes PHP code and provides expert guidance |
 | [ECMAScript Expert](ai-agent-ecmascript/spec.md) | software-development | ECMAScript/JavaScript/TypeScript development |
 | [Python Expert](ai-agent-python/spec.md) | software-development | Python development |
+| [Embedded Python Expert](ai-agent-embedded-python/spec.md) | embedded-systems | CircuitPython and MicroPython microcontroller development |
 | [Rust Expert](ai-agent-rust/spec.md) | software-development | Rust development |
 | [WordPress Expert](ai-agent-wordpress/spec.md) | site-management | WordPress site management and administration |
 | [WordPress Developer](ai-agent-wordpress-developer/spec.md) | software-development | WordPress themes, plugins, and customizations |
