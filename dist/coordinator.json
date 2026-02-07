@@ -1,6 +1,6 @@
 {
   "name": "Coordinator Agent",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "draft",
   "domain": "orchestration",
   "identity": {
@@ -37,6 +37,11 @@
     {
       "capability": "Parallel orchestration",
       "description": "Execute independent tasks concurrently",
+      "delegatesTo": null
+    },
+    {
+      "capability": "Failure handling",
+      "description": "Detect agent failures, retry, re-route, or escalate",
       "delegatesTo": null
     },
     {
@@ -100,6 +105,11 @@
     "handsOffTo": []
   },
   "versionHistory": [
+    {
+      "version": "0.2.0",
+      "date": "2026-02-07",
+      "changes": "Added coordination patterns, failure handling & recovery, progress tracking detail, deadlock prevention constraint, coordination overhead constraint"
+    },
     {
       "version": "0.1.0",
       "date": "2026-02-06",
