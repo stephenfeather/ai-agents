@@ -1,6 +1,6 @@
 # Agent Spec: WordPress Developer
 
-> Version: 0.1.0 | Status: draft | Domain: software-development
+> Version: 0.2.0 | Status: draft | Domain: software-development
 
 ## Identity
 
@@ -51,6 +51,22 @@
 - Enqueuing scripts/styles
 - Internationalization (i18n)
 - WordPress CLI (WP-CLI)
+
+### Headless WordPress
+
+- Decoupled/headless architecture patterns (WP as backend, separate frontend)
+- WPGraphQL plugin for GraphQL API
+- JWT authentication for API consumers
+- CORS configuration for decoupled frontends
+- API versioning and response shaping for external consumers
+
+### Performance Engineering
+
+- Transient API for caching expensive query results
+- Object cache integration (`wp_cache_get`, `wp_cache_set`, `wp_cache_delete`)
+- `WP_Query` optimization: `'fields' => 'ids'`, `'no_found_rows' => true`, `'update_post_meta_cache' => false`, `'update_post_term_cache' => false`
+- Lazy loading and asset deferral (`wp_enqueue_script` with `strategy => 'defer'`)
+- Database query reduction: batch meta queries, avoid N+1 patterns
 
 ### Out of Scope
 
@@ -109,6 +125,7 @@ Delegate to specialists:
 | Coding standards | Passes WPCS | PHP_CodeSniffer with WordPress ruleset |
 | Security | No OWASP vulnerabilities | Manual review + plugin security checkers |
 | Compatibility | Works on target WP version | Version-specific testing |
+| Test coverage | 80%+ for new code | PHPUnit --coverage |
 | Performance | No blocking queries, optimized assets | Query Monitor |
 | Accessibility | Block editor a11y compliance | Accessibility checker |
 | Internationalization | All strings translatable | i18n linting |
@@ -142,4 +159,5 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added headless WordPress knowledge, performance engineering patterns, test coverage target (80%+) |
 | 0.1.0 | 2026-02-06 | Initial draft from interview |

@@ -1,5 +1,5 @@
 name: WordPress Developer
-version: 0.1.0
+version: 0.2.0
 status: draft
 domain: software-development
 identity:
@@ -125,6 +125,9 @@ successCriteria:
     - metric: Compatibility
       target: Works on target WP version
       tool: Version-specific testing
+    - metric: Test coverage
+      target: 80%+ for new code
+      tool: PHPUnit --coverage
     - metric: Performance
       target: No blocking queries, optimized assets
       tool: Query Monitor
@@ -155,6 +158,9 @@ interfaces:
     - Documentation Agent (user docs)
     - DevOps Agent (deployment, hosting)
 versionHistory:
+  - version: 0.2.0
+    date: '2026-02-07'
+    changes: Added headless WordPress knowledge, performance engineering patterns, test coverage target (80%+)
   - version: 0.1.0
     date: '2026-02-06'
     changes: Initial draft from interview
