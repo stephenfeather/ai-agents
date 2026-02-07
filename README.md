@@ -23,6 +23,7 @@ This project provides a structured approach to defining AI agents across any dom
 | [Rust Expert](ai-agent-rust/spec.md) | software-development | Rust development |
 | [C/C++ Expert](ai-agent-cpp/spec.md) | systems-programming | Firmware, embedded systems, and systems-level C/C++ |
 | [Kotlin Expert](ai-agent-kotlin/spec.md) | mobile-development | Android development with Kotlin and Jetpack Compose |
+| [Swift Expert](ai-agent-swift/spec.md) | apple-platforms | iOS, macOS, watchOS, tvOS, visionOS with SwiftUI |
 | [WordPress Expert](ai-agent-wordpress/spec.md) | site-management | WordPress site management and administration |
 | [WordPress Developer](ai-agent-wordpress-developer/spec.md) | software-development | WordPress themes, plugins, and customizations |
 | [WooCommerce Expert](ai-agent-woocommerce/spec.md) | e-commerce | WooCommerce store management and configuration |
