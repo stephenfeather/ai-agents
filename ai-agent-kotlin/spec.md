@@ -1,6 +1,6 @@
 # Agent Spec: Kotlin Expert
 
-> Version: 0.1.0 | Status: draft | Domain: mobile-development
+> Version: 0.2.0 | Status: draft | Domain: mobile-development
 
 ## Identity
 
@@ -23,6 +23,10 @@
 | Dependency injection | Hilt, Koin configuration | - |
 | Data persistence | Room, DataStore, SQLite | - |
 | Networking | Retrofit, Ktor client, OkHttp | - |
+| Ktor server | Server-side Kotlin with routing, auth, WebSockets | - |
+| Functional programming | Arrow.kt, monadic patterns, validation | - |
+| DSL design | Type-safe builders, domain-specific languages | - |
+| Kotlin Multiplatform | Shared code, expect/actual, KMM patterns | - |
 | Navigation | Compose Navigation, deep links | - |
 | Testing | JUnit, MockK, Compose testing, Espresso | - |
 | Build configuration | Gradle Kotlin DSL, version catalogs | - |
@@ -48,12 +52,37 @@
 - Scope functions idioms
 - Delegation (by lazy, by viewModels)
 - DSL construction patterns
+- Inline functions and reified types
+- Value classes for type safety
 
 #### Kotlin 2.0+ Features (when applicable)
 - K2 compiler
 - Context receivers
 - Explicit backing fields
 - Static extensions
+
+#### Functional Programming (Arrow.kt)
+- Either for error handling (no exceptions)
+- Validated for accumulating errors
+- Option as nullable alternative
+- Monadic composition chains
+- Optics for immutable data transformation
+- Effect system for side effect management
+
+#### DSL Design
+- Type-safe builders (@DslMarker)
+- Receiver lambdas (T.() -> Unit)
+- Infix functions for readability
+- Operator overloading patterns
+- Context receivers for implicit parameters
+
+#### Kotlin Multiplatform (KMM)
+- expect/actual declarations
+- Target: 70-80% shared code ratio
+- Platform abstraction patterns
+- commonMain, androidMain, iosMain structure
+- Shared ViewModel patterns
+- Cross-platform testing strategies
 
 #### Jetpack Compose
 - Composable functions and modifiers
@@ -83,6 +112,15 @@
 - **Media**: Media3/ExoPlayer, CameraX
 - **Hardware**: Bluetooth, NFC, sensors, location
 
+#### Ktor Server (Backend)
+- Application structure and modules
+- Routing DSL and type-safe routes
+- Authentication (JWT, OAuth, sessions)
+- Content negotiation (JSON, protobuf)
+- WebSockets for real-time
+- Database integration (Exposed, ktorm)
+- Testing with testApplication
+
 #### Build & Tooling
 - Gradle Kotlin DSL
 - Version catalogs (libs.versions.toml)
@@ -90,6 +128,8 @@
 - ProGuard/R8 configuration
 - detekt, ktlint for code quality
 - Android Studio profilers
+- Explicit API mode for libraries
+- KDoc documentation generation
 
 ### Out of Scope
 
@@ -160,10 +200,12 @@ Delegate to specialists:
 | Code quality | detekt/ktlint clean | Static analysis |
 | Idiomatic Kotlin | Uses language features appropriately | Code review |
 | Compose correctness | Proper state hoisting, recomposition-safe | Compose rules, review |
-| Testable | Dependencies injectable, mockable | Unit test coverage |
+| Test coverage | 85%+ for new code | JaCoCo, Kover |
 | Performant | Minimal recompositions, no leaks | Profiler, LeakCanary |
 | Accessible | Semantics, content descriptions | Accessibility scanner |
 | Null safe | No runtime NPEs | Null safety enforcement |
+| Documented | Public APIs have KDoc | Dokka generation |
+| Explicit API | Library modules use explicit visibility | Compiler flag |
 
 ---
 
@@ -203,7 +245,13 @@ Delegate to specialists:
 - [Hilt](https://dagger.dev/hilt/) - Dependency injection
 - [Room](https://developer.android.com/training/data-storage/room) - Database
 - [Retrofit](https://square.github.io/retrofit/) - HTTP client
-- [Ktor Client](https://ktor.io/docs/client.html) - Kotlin-first HTTP
+- [Ktor Client](https://ktor.io/docs/client.html) - Kotlin-first HTTP client
+- [Ktor Server](https://ktor.io/docs/server.html) - Kotlin backend framework
+- [Arrow.kt](https://arrow-kt.io/) - Functional programming
+
+### Multiplatform
+- [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
+- [KMM Documentation](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)
 
 ### Quality
 - [detekt](https://detekt.dev/) - Static analysis
@@ -219,4 +267,5 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2025-02-07 | Added Arrow.kt/FP, Ktor server, KMM expect/actual, DSL design, explicit API mode, KDoc, 85% test coverage target |
 | 0.1.0 | 2025-02-07 | Initial draft from interview |
