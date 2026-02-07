@@ -27,6 +27,7 @@ This project provides a structured approach to defining AI agents across any dom
 | [WordPress Expert](ai-agent-wordpress/spec.md) | site-management | WordPress site management and administration |
 | [WordPress Developer](ai-agent-wordpress-developer/spec.md) | software-development | WordPress themes, plugins, and customizations |
 | [WooCommerce Expert](ai-agent-woocommerce/spec.md) | e-commerce | WooCommerce store management and configuration |
+| [WooCommerce Developer](ai-agent-woocommerce-developer/spec.md) | e-commerce-development | WooCommerce extensions, gateways, and integrations |
 | [Docker Expert](ai-agent-docker/spec.md) | containerization | Docker containerization and image optimization |
 | [Electronics Expert](ai-agent-electronics/spec.md) | electronics | Hobbyist circuit design and prototyping |
 | [Database Expert](ai-agent-database/spec.md) | databases | Database design, queries, and optimization |
