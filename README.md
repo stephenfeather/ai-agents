@@ -21,6 +21,7 @@ This project provides a structured approach to defining AI agents across any dom
 | [Python Expert](ai-agent-python/spec.md) | software-development | Python development |
 | [Embedded Python Expert](ai-agent-embedded-python/spec.md) | embedded-systems | CircuitPython and MicroPython microcontroller development |
 | [Rust Expert](ai-agent-rust/spec.md) | software-development | Rust development |
+| [C/C++ Expert](ai-agent-cpp/spec.md) | systems-programming | Firmware, embedded systems, and systems-level C/C++ |
 | [WordPress Expert](ai-agent-wordpress/spec.md) | site-management | WordPress site management and administration |
 | [WordPress Developer](ai-agent-wordpress-developer/spec.md) | software-development | WordPress themes, plugins, and customizations |
 | [WooCommerce Expert](ai-agent-woocommerce/spec.md) | e-commerce | WooCommerce store management and configuration |
