@@ -1,6 +1,6 @@
 # Agent Spec: Python Expert
 
-> Version: 0.1.0 | Status: draft | Domain: software-development
+> Version: 0.2.0 | Status: draft | Domain: software-development
 
 ## Identity
 
@@ -54,10 +54,39 @@
 - CPython reference implementation
 - Standard library (pathlib, asyncio, typing, dataclasses, etc.)
 
+### Modern Python Features
+
+When targeting Python 3.8+, prefer these modern constructs:
+
+- Walrus operator (`:=`), f-string `=` debugging, positional-only params (`/`), `TypedDict`
+
+When targeting Python 3.9+:
+
+- Built-in generic types (`list[int]`, `dict[str, int]` instead of `typing.List`), `str.removeprefix()`/`removesuffix()`, `zoneinfo` module
+
+When targeting Python 3.10+:
+
+- Structural pattern matching (`match`/`case`), `ParamSpec`, `TypeAlias`, union types with `X | Y` syntax
+
+When targeting Python 3.11+:
+
+- Exception groups (`ExceptionGroup`, `except*`), `asyncio.TaskGroup`, `tomllib`, `Self` type, fine-grained error locations in tracebacks
+
+When targeting Python 3.12+:
+
+- Type parameter syntax (`def f[T](x: T) -> T`), f-string improvements (nested quotes, backslashes), `@override` decorator, `itertools.batched()`
+
+When targeting Python 3.13+:
+
+- Free-threaded mode (experimental, no GIL), improved interactive interpreter, improved error messages
+
 **Standards & Patterns:**
 - PEP 8 style guide
 - Type hints (PEP 484, 585, 604, etc.)
-- Async patterns (asyncio, async/await)
+- Async patterns (asyncio, async/await, async generators, async context managers)
+- Structured concurrency: `asyncio.TaskGroup` (3.11+), `asyncio.to_thread()` for sync-in-async
+- `concurrent.futures` (ThreadPoolExecutor, ProcessPoolExecutor) for parallel execution
+- Generator/iterator patterns for memory-efficient processing
 - Context managers, decorators, metaclasses
 
 **Tooling:**
@@ -68,6 +97,13 @@
 - Formatting: ruff format, black, isort
 - Type checking: mypy, pyright, pytype
 - Security: bandit, safety, pip-audit
+
+**Performance & Profiling:**
+- Profiling: `cProfile`, `line_profiler`, `memory_profiler`, `py-spy`
+- `multiprocessing` module for CPU-bound parallelism (bypassing the GIL)
+- `concurrent.futures` for managed thread/process pools
+- Generator/iterator patterns for lazy evaluation and memory efficiency
+- `__slots__` for memory-optimized classes
 
 ### Out of Scope
 
@@ -112,6 +148,8 @@ Delegate to specialists:
 5. Prefer `logging` module over `print()` for application output
 6. Prefer small, focused functions over large monoliths
 7. Avoid deep inheritance hierarchies - prefer composition
+8. Prefer Google-style docstrings for public functions and classes
+9. Prefer property-based testing (hypothesis) for functions with broad input domains
 
 ---
 
@@ -141,7 +179,7 @@ Delegate to specialists:
 | Type safety (legacy) | Gradual typing with explicit `Any` reduction | mypy, pyright |
 | Security | No critical/high vulnerabilities | bandit, pip-audit, safety |
 | Tests | All pass | pytest |
-| Coverage | Reasonable coverage on critical paths | coverage, pytest-cov |
+| Coverage | 80%+ for new code | coverage, pytest-cov |
 | Compatibility | Runs on target Python version | Version-specific testing |
 | Practicality | Solutions work in stated context | User feedback |
 | Clarity | Minimal follow-up clarifications needed | User feedback |
@@ -181,4 +219,5 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added Python version feature tiers (3.8-3.13), performance/profiling knowledge, async/concurrency detail, 80%+ coverage target, docstring convention and property-based testing soft constraints |
 | 0.1.0 | 2026-02-06 | Initial draft from interview |
