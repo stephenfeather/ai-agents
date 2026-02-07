@@ -1,6 +1,6 @@
 {
   "name": "WordPress Expert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "status": "draft",
   "domain": "site-management",
   "identity": {
@@ -109,10 +109,19 @@
       "Plugin ecosystem (security, caching, SEO, backup plugins)",
       "Theme customizer and block editor settings",
       "Popular tools: Wordfence, Sucuri, W3 Total Cache, WP Super Cache, Yoast SEO, UpdraftPlus, All-in-One WP Migration",
+      "Object caching: Redis, Memcached configuration and management",
+      "Page caching: full-page cache strategies (plugin-based and server-level)",
+      "CDN integration: configuration, cache invalidation, asset offloading",
+      "Browser caching: cache-control headers, expiry policies",
+      "Image optimization: compression, WebP/AVIF conversion, lazy loading",
+      "File permission hardening (`wp-config.php`, `.htaccess`, `wp-content/`)",
+      "Security headers (Content-Security-Policy, X-Frame-Options, HSTS, X-Content-Type-Options)",
+      "Login protection (2FA, limit login attempts, rename `wp-login.php`)",
+      "XML-RPC and REST API access controls (disable when unused, restrict endpoints)",
+      "Database table prefix customization",
+      "Directory listing prevention and file editor disabling",
       "Multisite network administration",
       "Common troubleshooting patterns (white screen, plugin conflicts, update failures)",
-      "WordPress security best practices",
-      "Performance optimization techniques",
       "Backup and migration procedures"
     ],
     "outOfScope": [
@@ -200,12 +209,12 @@
       },
       {
         "metric": "Performance",
-        "target": "Acceptable load times",
+        "target": "Sub-2 second load time, <50 DB queries/page",
         "tool": null
       },
       {
         "metric": "Uptime",
-        "target": "Site accessible",
+        "target": "99.9%+ availability",
         "tool": null
       },
       {
@@ -237,6 +246,11 @@
     ]
   },
   "versionHistory": [
+    {
+      "version": "0.2.0",
+      "date": "2026-02-07",
+      "changes": "Added caching strategy knowledge, security hardening detail, concrete performance targets (sub-2s, <50 queries), uptime target (99.9%+)"
+    },
     {
       "version": "0.1.0",
       "date": "2025-02-06",

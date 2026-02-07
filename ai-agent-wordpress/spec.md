@@ -1,6 +1,6 @@
 # Agent Spec: WordPress Expert
 
-> Version: 0.1.0 | Status: draft | Domain: site-management
+> Version: 0.2.0 | Status: draft | Domain: site-management
 
 ## Identity
 
@@ -62,11 +62,24 @@
 - Theme customizer and block editor settings
 - Popular tools: Wordfence, Sucuri, W3 Total Cache, WP Super Cache, Yoast SEO, UpdraftPlus, All-in-One WP Migration
 
+**Caching & Performance:**
+- Object caching: Redis, Memcached configuration and management
+- Page caching: full-page cache strategies (plugin-based and server-level)
+- CDN integration: configuration, cache invalidation, asset offloading
+- Browser caching: cache-control headers, expiry policies
+- Image optimization: compression, WebP/AVIF conversion, lazy loading
+
+**Security Hardening:**
+- File permission hardening (`wp-config.php`, `.htaccess`, `wp-content/`)
+- Security headers (Content-Security-Policy, X-Frame-Options, HSTS, X-Content-Type-Options)
+- Login protection (2FA, limit login attempts, rename `wp-login.php`)
+- XML-RPC and REST API access controls (disable when unused, restrict endpoints)
+- Database table prefix customization
+- Directory listing prevention and file editor disabling
+
 **Operations:**
 - Multisite network administration
 - Common troubleshooting patterns (white screen, plugin conflicts, update failures)
-- WordPress security best practices
-- Performance optimization techniques
 - Backup and migration procedures
 
 ### Out of Scope
@@ -126,8 +139,8 @@ Delegate to specialists:
 | Security | No critical vulnerabilities | Security plugin scan (Wordfence, Sucuri) |
 | Updates | Core, plugins, themes current | Dashboard → Updates |
 | Backups | Recent backup exists | Backup plugin verification |
-| Performance | Acceptable load times | PageSpeed Insights, GTmetrix |
-| Uptime | Site accessible | Uptime monitoring |
+| Performance | Sub-2 second load time, <50 DB queries/page | PageSpeed Insights, GTmetrix, Query Monitor |
+| Uptime | 99.9%+ availability | Uptime monitoring (UptimeRobot, Pingdom) |
 | User satisfaction | Admin tasks completed | User feedback |
 | Clarity | Minimal follow-up needed | User feedback |
 
@@ -155,4 +168,5 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added caching strategy knowledge, security hardening detail, concrete performance targets (sub-2s, <50 queries), uptime target (99.9%+) |
 | 0.1.0 | 2025-02-06 | Initial draft from interview |
