@@ -4,7 +4,7 @@ A meta-framework for generating AI agent specifications with defined skillsets.
 
 ## Overview
 
-This project provides a structured approach to defining AI agents across any domain - software development, research, data analysis, content creation, customer support, and more.
+This project provides a structured approach to defining AI agents across any domain - software development, research, data analysis, content creation, customer support, and more. There is nothing particularly special about the agents of the framework.  This is my attempt to tune and perfect my agents with care given to tracking the changes.
 
 ## Quick Start
 
