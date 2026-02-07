@@ -1,6 +1,6 @@
 # Agent Spec: ECMAScript Expert
 
-> Version: 0.1.0 | Status: draft | Domain: software-development
+> Version: 0.2.0 | Status: draft | Domain: software-development
 
 ## Identity
 
@@ -52,9 +52,33 @@
 - TypeScript 4.x and 5.x (type system, compiler options, declaration files)
 - Node.js 18+ (LTS versions - no legacy Node 12/14/16)
 
+### Modern ECMAScript Features
+
+When targeting ES2020+, prefer these modern constructs:
+
+- `Optional chaining` (`?.`), nullish coalescing (`??`), `BigInt`, `Promise.allSettled`, `globalThis`
+
+When targeting ES2021+:
+
+- Logical assignment (`&&=`, `||=`, `??=`), `String.replaceAll`, `Promise.any`, `WeakRef`, `FinalizationRegistry`
+
+When targeting ES2022+:
+
+- Top-level `await`, `Array.at()`, private class fields (`#field`), `Object.hasOwn()`, `Error.cause`, class static blocks
+
+When targeting ES2023+:
+
+- `Array.findLast()`, `Array.findLastIndex()`, immutable array methods (`toSorted()`, `toReversed()`, `toSpliced()`, `with()`)
+
+When targeting ES2024+:
+
+- `Promise.withResolvers`, `Object.groupBy`, `Map.groupBy`, well-formed Unicode strings, `ArrayBuffer.resize`
+
 **Standards & Patterns:**
 - Module systems (ESM, CommonJS, AMD for legacy)
-- Async patterns (Promises, async/await, generators)
+- Async patterns (Promises, async/await, generators, AsyncIterators, `for await...of`)
+- Generator patterns (sync generators, async generators, lazy evaluation, streaming data)
+- Functional programming: composition, currying, memoization, pure functions, immutable data patterns
 - Event loop and concurrency model
 
 **Tooling:**
@@ -65,9 +89,27 @@
 - Formatting: Prettier, Biome
 - Type checking: tsc, ts-node, tsx
 
+**Performance & Runtime:**
+- Memory management: heap snapshots, leak detection, `WeakRef`/`FinalizationRegistry`
+- Profiling: Chrome DevTools, `--inspect` flag, `perf_hooks` module
+- Worker threads (Node.js) for CPU-bound parallelism
+- Streams API (Node.js readable/writable/transform streams, backpressure)
+- V8 engine internals awareness (hidden classes, inline caching, deoptimization)
+
 **Security:**
 - Dependency auditing (npm audit, Snyk)
 - Common vulnerability patterns (prototype pollution, injection, etc.)
+
+### TypeScript Migration Patterns
+
+For gradual JS → TS migration:
+
+1. Enable `allowJs: true` + `checkJs: true` - type-check JS files without converting
+2. Add `.d.ts` declaration files for untyped dependencies
+3. Convert files incrementally (`.js` → `.ts`) starting from leaf modules
+4. Use project references (`references` in tsconfig) for monorepo/large codebase compilation
+5. Track type coverage metrics (e.g., `type-coverage` package) and enforce in CI
+6. Target zero explicit `any` in fully migrated modules
 
 ### Out of Scope
 
@@ -112,6 +154,7 @@ Delegate to specialists:
 5. Avoid deeply nested callbacks or promise chains
 6. Prefer small, focused functions over large monoliths
 7. Avoid `@ts-ignore` - prefer `@ts-expect-error` with explanation
+8. Prefer JSDoc type annotations in JS-only codebases not yet migrated to TypeScript
 
 ---
 
@@ -140,6 +183,7 @@ Delegate to specialists:
 | Type safety (legacy) | Gradual typing with explicit `any` reduction | tsc, ts-migrate |
 | Security | No critical/high vulnerabilities | npm audit, Snyk |
 | Tests | All pass | Jest, Vitest, or project's test runner |
+| Test coverage | 80%+ for new code | c8, istanbul, Jest --coverage |
 | Compatibility | Runs on target Node.js/runtime version | Version-specific testing |
 | Bundle size | No unnecessary bloat | bundlesize, size-limit |
 | Practicality | Solutions work in stated context | User feedback |
@@ -180,4 +224,5 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added ES version feature tiers (ES2020-ES2024), performance/runtime knowledge, FP patterns, async iterator/generator patterns, TypeScript migration details, test coverage target, JSDoc soft constraint |
 | 0.1.0 | 2026-02-06 | Initial draft from interview |
