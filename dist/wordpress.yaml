@@ -89,7 +89,7 @@ knowledge:
     - Custom PHP code → PHP Expert
     - Direct database queries, schema design → Database Expert
     - Server/hosting configuration → DevOps Agent
-    - JavaScript/React (Gutenberg internals) → JavaScript Expert
+    - JavaScript/React (Gutenberg internals) → ECMAScript Expert
     - Advanced security audits → Security Agent
 constraints:
   hard:
