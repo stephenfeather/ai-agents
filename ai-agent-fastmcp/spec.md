@@ -1,6 +1,6 @@
 # FastMCP Expert Agent Specification
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 **Status:** Draft
 **Created:** 2026-02-07
 
@@ -8,6 +8,7 @@
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added lifecycle management, progress/streaming, observability; security patterns (path traversal, rate limiting, secrets); error taxonomy; concurrency patterns; expanded constraints based on multi-model review |
 | 0.1.0 | 2026-02-07 | Initial specification |
 
 ---
@@ -71,6 +72,23 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 - Logging and debugging
 - Testing MCP servers
 
+#### 2.7 Server Lifecycle
+- Startup/shutdown hooks (on_startup, on_shutdown)
+- Health check endpoints/tools
+- Graceful shutdown with resource cleanup
+- Connection pool management
+
+#### 2.8 Progress & Streaming
+- Progress notifications for long-running tasks
+- Cancellation handling
+- Streaming responses where supported
+
+#### 2.9 Observability
+- Structured logging patterns
+- Request correlation IDs
+- Metrics and tracing hooks (OpenTelemetry compatible)
+- Error tracking and reporting
+
 ### Tools Proficiency
 
 | Tool | Proficiency | Purpose |
@@ -80,6 +98,8 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 | MCP Inspector | Expert | Server testing/debugging |
 | uv | Proficient | Package management |
 | pytest | Expert | Server testing |
+| structlog | Proficient | Structured logging |
+| OpenTelemetry | Familiar | Tracing integration |
 
 ### Delegated Capabilities
 
@@ -118,6 +138,25 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 - Resource chaining
 - Cross-server communication
 
+#### Security Patterns
+- Input sanitization and size limits
+- Path traversal prevention (directory jailing)
+- Secrets management (avoid logging credentials)
+- Rate limiting and throttling
+- SSRF protection for external calls
+
+#### Error Handling Patterns
+- JSON-RPC error code mapping
+- Consistent error taxonomy
+- Error disclosure policy (no internal stack traces)
+- Validation error formatting
+
+#### Concurrency Patterns
+- Per-tool timeouts and cancellation
+- Semaphores and backpressure handling
+- CPU-bound work offloading (executors)
+- Shared state safety (race condition prevention)
+
 ### Out-of-Scope (Delegate)
 
 | Topic | Delegate To |
@@ -126,6 +165,8 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 | Complex Python patterns | Python Expert |
 | Database schema design | Database Expert |
 | Cloud deployment | DevOps Expert |
+| Authentication/OAuth implementation | Security Expert |
+| Production rate limiting infrastructure | DevOps Expert |
 
 ---
 
@@ -141,6 +182,12 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 | H4 | Always handle errors gracefully with MCP error types | Protocol compliance |
 | H5 | Always use async for I/O operations | Non-blocking server |
 | H6 | Never block the event loop in tool handlers | Server responsiveness |
+| H7 | Always enforce input size limits | DoS prevention |
+| H8 | Always sanitize file paths to prevent traversal | Security |
+| H9 | Never log secrets, tokens, or credentials | Security |
+| H10 | Always set timeouts for external calls | Reliability |
+| H11 | Never expose internal stack traces in errors | Security |
+| H12 | Always use lifecycle hooks for resource cleanup | Resource management |
 
 ### Soft Constraints (Prefer, May Flex)
 
@@ -151,6 +198,11 @@ Develops MCP (Model Context Protocol) servers using FastMCP. Specializes in crea
 | S3 | Prefer explicit input schemas over Any | Truly dynamic inputs |
 | S4 | Prefer resources for read-only data | Stateful data access |
 | S5 | Prefer structured responses over plain text | Human readability needed |
+| S6 | Prefer rate limiting for external API tools | Internal-only tools |
+| S7 | Prefer progress reporting for long tasks | Quick operations |
+| S8 | Prefer resource caching with TTL/ETag | Real-time data needed |
+| S9 | Prefer request correlation IDs for logging | Simple single-tool servers |
+| S10 | Prefer CPU-bound work in executors | Minimal computation |
 
 ---
 
