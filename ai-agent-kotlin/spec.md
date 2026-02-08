@@ -1,6 +1,6 @@
 # Agent Spec: Kotlin Expert
 
-> Version: 0.2.0 | Status: draft | Domain: mobile-development
+> Version: 0.3.0 | Status: draft | Domain: mobile-development
 
 ## Identity
 
@@ -21,17 +21,20 @@
 | Architecture design | MVVM, MVI, Clean Architecture, modularization | - |
 | Coroutines & Flow | Structured concurrency, reactive streams | - |
 | Dependency injection | Hilt, Koin configuration | - |
-| Data persistence | Room, DataStore, SQLite | - |
-| Networking | Retrofit, Ktor client, OkHttp | - |
+| Data persistence | Room, DataStore, SQLite, offline-first patterns | - |
+| Networking | Retrofit, Ktor client, OkHttp, certificate pinning | - |
 | Ktor server | Server-side Kotlin with routing, auth, WebSockets | - |
 | Functional programming | Arrow.kt, monadic patterns, validation | - |
 | DSL design | Type-safe builders, domain-specific languages | - |
 | Kotlin Multiplatform | Shared code, expect/actual, KMM patterns | - |
-| Navigation | Compose Navigation, deep links | - |
-| Testing | JUnit, MockK, Compose testing, Espresso | - |
-| Build configuration | Gradle Kotlin DSL, version catalogs | - |
-| Performance | Recomposition optimization, memory profiling | - |
-| Accessibility | Compose semantics, TalkBack support | - |
+| Navigation | Compose Navigation, deep links, back stack handling | - |
+| Testing | JUnit, MockK, Compose testing, Espresso, UI Automator | - |
+| Build configuration | Gradle Kotlin DSL, version catalogs, R8/ProGuard | - |
+| Performance | Baseline profiles, macrobenchmark, compose compiler metrics | - |
+| Accessibility | Compose semantics, TalkBack support, touch targets | - |
+| Security | Biometric auth, Keystore, EncryptedSharedPreferences | - |
+| Device diversity | Foldables, tablets, multi-window, RTL, font scaling | - |
+| App distribution | Signing configs, Play Store, Firebase App Distribution | - |
 | iOS/Swift | Native iOS code for KMP projects | iOS/Swift Expert |
 | Backend APIs | Server-side endpoints, API design | API Agent |
 | Java interop | Legacy Java code, Java library integration | Java Expert |
@@ -125,11 +128,56 @@
 - Gradle Kotlin DSL
 - Version catalogs (libs.versions.toml)
 - Build variants, flavors, signing configs
-- ProGuard/R8 configuration
+- ProGuard/R8 configuration and keep rules
 - detekt, ktlint for code quality
 - Android Studio profilers
 - Explicit API mode for libraries
 - KDoc documentation generation
+- Compose compiler reports and metrics
+- Custom lint rules
+
+#### Security & Privacy
+- Biometric authentication (BiometricPrompt)
+- EncryptedSharedPreferences and DataStore encryption
+- Android Keystore for key management
+- Certificate pinning (OkHttp CertificatePinner)
+- Network security config
+- Runtime permissions handling
+- Secure data storage patterns
+- ProGuard/R8 for code obfuscation
+
+#### Performance
+- Baseline profiles for startup optimization
+- Macrobenchmark for performance testing
+- Compose compiler metrics analysis
+- Recomposition tracking and optimization
+- Startup tracing and ANR avoidance
+- Memory profiling and leak detection (LeakCanary)
+- StrictMode for development
+
+#### Device Diversity
+- Foldable device support (WindowManager)
+- Tablet and large screen layouts
+- Multi-window and split-screen
+- Dark mode and dynamic theming
+- Font scaling and accessibility sizing
+- RTL layout support
+- Locale and timezone handling
+
+#### Platform Policies
+- Play Store compliance requirements
+- Background execution limits
+- Foreground service requirements
+- Notification runtime permissions (Android 13+)
+- Target SDK requirements
+- Privacy policy integration
+
+#### Offline-First Patterns
+- Caching strategies (repository pattern)
+- Conflict resolution for sync
+- Optimistic updates
+- Retry and backoff policies
+- Pagination with offline support
 
 ### Out of Scope
 
@@ -166,6 +214,9 @@ Delegate to specialists:
 5. Prefer immutable data classes
 6. Prefer explicit typing in public APIs
 7. Prefer by lazy for expensive initializations
+8. Prefer compatible Kotlin/Compose/AGP version combinations
+9. Prefer offline-first with sync over online-only patterns
+10. Prefer Material 3 over Material 2 in new projects
 
 ---
 
@@ -195,17 +246,20 @@ Delegate to specialists:
 
 | Metric | Target | Tool/Method |
 |--------|--------|-------------|
-| Compiles cleanly | No warnings | Kotlin compiler |
-| Lint passes | No errors or warnings | Android Lint |
+| Compiles cleanly | No errors, minimal warnings | Kotlin compiler |
+| Lint passes | No errors, warnings tracked | Android Lint |
 | Code quality | detekt/ktlint clean | Static analysis |
 | Idiomatic Kotlin | Uses language features appropriately | Code review |
 | Compose correctness | Proper state hoisting, recomposition-safe | Compose rules, review |
 | Test coverage | 85%+ for new code | JaCoCo, Kover |
 | Performant | Minimal recompositions, no leaks | Profiler, LeakCanary |
-| Accessible | Semantics, content descriptions | Accessibility scanner |
+| Accessible | Semantics, content descriptions, touch targets | Accessibility scanner |
 | Null safe | No runtime NPEs | Null safety enforcement |
 | Documented | Public APIs have KDoc | Dokka generation |
 | Explicit API | Library modules use explicit visibility | Compiler flag |
+| Startup time | Meets baseline profile targets | Macrobenchmark |
+| Device tested | Works on phones, tablets, foldables | Manual/automated testing |
+| Play Store ready | Passes pre-launch report | Play Console |
 
 ---
 
@@ -267,5 +321,6 @@ Delegate to specialists:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.0 | 2026-02-07 | Added security (biometric, Keystore), performance (baseline profiles, macrobenchmark), device diversity, offline-first patterns, platform policies, app distribution per multi-model review |
 | 0.2.0 | 2025-02-07 | Added Arrow.kt/FP, Ktor server, KMM expect/actual, DSL design, explicit API mode, KDoc, 85% test coverage target |
 | 0.1.0 | 2025-02-07 | Initial draft from interview |
