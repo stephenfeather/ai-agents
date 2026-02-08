@@ -1,0 +1,20 @@
+name: null
+version: null
+status: null
+domain: null
+identity: null
+capabilities: []
+knowledge: null
+constraints: null
+interactionStyle: null
+successCriteria: null
+interfaces: null
+versionHistory:
+  - version: 0.2.0
+    date: '2026-02-07'
+    changes: >-
+      Added Testing & Verification section, Security & Firmware Update section, Tooling section, coding standards
+      (MISRA-C), power/safety constraints per Gemini/Codex review, expanded delegations
+  - version: 0.1.0
+    date: '2026-02-07'
+    changes: Initial specification
