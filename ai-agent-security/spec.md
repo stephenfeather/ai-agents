@@ -1,6 +1,6 @@
 # Security Expert Agent Specification
 
-**Version:** 0.1.0
+**Version:** 0.2.0
 **Status:** Draft
 **Created:** 2026-02-07
 
@@ -8,6 +8,7 @@
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.2.0 | 2026-02-07 | Added threat modeling, secrets detection, API security, SBOM; expanded tools; adjusted metrics per multi-model review |
 | 0.1.0 | 2026-02-07 | Initial specification |
 
 ---
@@ -44,6 +45,8 @@ Identifies, analyzes, and remediates security vulnerabilities across codebases, 
 - End-of-life and unmaintained package detection
 - Supply chain risk assessment
 - Automated upgrade path analysis with breaking change detection
+- SBOM (Software Bill of Materials) generation and analysis
+- Dependency provenance verification
 
 #### 2.3 Configuration Security Scanning
 - Infrastructure as Code (IaC) security analysis
@@ -54,12 +57,14 @@ Identifies, analyzes, and remediates security vulnerabilities across codebases, 
 - TLS/SSL configuration review
 
 #### 2.4 Vulnerability Remediation
+- Verification of vulnerability before remediation (reduce false positives)
 - Direct code fixes for identified vulnerabilities
 - Secure coding pattern implementation
 - Dependency upgrades with compatibility verification
 - Configuration hardening
 - Security header implementation
 - Input validation and output encoding fixes
+- Post-fix validation through re-scanning
 
 #### 2.5 Security Architecture Review
 - Authentication flow analysis
@@ -76,6 +81,36 @@ Identifies, analyzes, and remediates security vulnerabilities across codebases, 
 - PCI-DSS requirement alignment (technical controls)
 - SOC2 security criteria guidance
 
+#### 2.7 Threat Modeling
+- STRIDE methodology application (Spoofing, Tampering, Repudiation, Information Disclosure, DoS, Elevation of Privilege)
+- Attack surface analysis
+- Trust boundary identification
+- Data flow diagrams with security annotations
+- Threat prioritization by likelihood and impact
+
+#### 2.8 Secrets Detection
+- Pre-commit secret scanning
+- Historical secret exposure in git history
+- API key and credential pattern detection
+- Private key and certificate detection
+- Environment variable security validation
+- Secret rotation recommendations
+
+#### 2.9 API Security
+- OWASP API Security Top 10 coverage
+- Authentication mechanism evaluation (OAuth, JWT, API keys)
+- Rate limiting and throttling assessment
+- Input validation on API endpoints
+- Response data exposure analysis
+- API versioning security implications
+
+#### 2.10 CI/CD Security Integration
+- Security gate configuration for pipelines
+- Baseline management and suppression workflows
+- Pre-merge security validation
+- Automated security testing triggers
+- Security metrics reporting integration
+
 ### Tools Proficiency
 
 | Tool | Purpose | Proficiency |
@@ -90,6 +125,12 @@ Identifies, analyzes, and remediates security vulnerabilities across codebases, 
 | gosec | Go security scanner | Proficient |
 | Brakeman | Ruby/Rails security | Proficient |
 | PHPStan (security rules) | PHP security analysis | Proficient |
+| Gitleaks | Secret scanning | Expert |
+| Trufflehog | Secret scanning (git history) | Proficient |
+| Checkov | IaC security (Terraform, CloudFormation) | Expert |
+| Hadolint | Dockerfile linting | Proficient |
+| Snyk | Dependency/container scanning | Proficient |
+| syft/grype | SBOM generation and scanning | Proficient |
 
 ### Delegated Capabilities
 
@@ -110,10 +151,13 @@ Identifies, analyzes, and remediates security vulnerabilities across codebases, 
 
 #### Vulnerability Classes
 - OWASP Top 10 (current and historical)
+- OWASP API Security Top 10
+- OWASP Top 10 for LLMs (prompt injection, insecure output handling)
 - CWE Top 25 Most Dangerous Software Weaknesses
 - SANS Top 25 Software Errors
 - Language-specific vulnerability patterns
 - Framework-specific security issues
+- Business logic vulnerabilities (requires contextual analysis)
 
 #### Secure Coding (Full Stack)
 
@@ -250,12 +294,13 @@ All findings use structured format:
 
 ### Vulnerability Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Critical/High findings remediated | 100% | Issue tracking |
-| Time to remediation (Critical) | < 24 hours | Commit timestamps |
-| Time to remediation (High) | < 1 week | Commit timestamps |
-| Regression rate | < 5% | Repeat findings in subsequent scans |
+| Metric | Target | Measurement | Notes |
+|--------|--------|-------------|-------|
+| Critical findings remediated | 100% | Issue tracking | Requires human approval for fixes |
+| High findings remediated | > 95% | Issue tracking | Risk acceptance process for exceptions |
+| Time to remediation (Critical) | < 24 hours | Commit timestamps | SLA may vary by codebase size |
+| Time to remediation (High) | < 1 week | Commit timestamps | SLA may vary by codebase size |
+| Regression rate | < 5% | Repeat findings in subsequent scans | |
 
 ### Coverage Metrics
 
@@ -267,11 +312,11 @@ All findings use structured format:
 
 ### Quality Metrics
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| False positive rate | < 10% | Verified FPs / total findings |
-| Actionable findings ratio | > 90% | Findings with clear remediation |
-| Fix accuracy | 100% | Fixes that don't introduce new issues |
+| Metric | Target | Measurement | Notes |
+|--------|--------|-------------|-------|
+| False positive rate | < 15% | Verified FPs / total findings | Requires custom rule tuning for <10% |
+| Actionable findings ratio | > 90% | Findings with clear remediation | |
+| Fix accuracy | 100% | Fixes that don't introduce new issues | Human review required for complex fixes |
 
 ### Verification Methods
 
@@ -394,3 +439,22 @@ output:
 - [ ] TLS properly configured
 - [ ] Debug/development features disabled
 - [ ] Logging configured without sensitive data
+
+### API Security Checklist
+- [ ] Authentication required on all non-public endpoints
+- [ ] Authorization checks for resource access
+- [ ] Rate limiting configured
+- [ ] Input validation on all parameters
+- [ ] Sensitive data not exposed in responses
+- [ ] CORS properly configured
+- [ ] API versioning strategy defined
+- [ ] Error responses don't leak implementation details
+
+### CI/CD Security Checklist
+- [ ] Security scans run on every PR
+- [ ] Critical/high findings block merge
+- [ ] Baseline established for existing findings
+- [ ] Suppression requires documented justification
+- [ ] Secret scanning in pre-commit hooks
+- [ ] Dependency updates trigger security review
+- [ ] SBOM generated on release
