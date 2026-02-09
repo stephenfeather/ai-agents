@@ -1,6 +1,6 @@
 # Agent Spec: Coordinator Agent
 
-> Version: 0.3.2 | Status: draft | Domain: orchestration
+> Version: 0.3.3 | Status: draft | Domain: orchestration
 
 ## Identity
 
@@ -64,11 +64,36 @@ The Coordinator maintains awareness of available agents. When the registry is in
 
 ### Coordination Patterns
 
+**Basic Patterns:**
+
 - **Sequential**: Tasks executed in order, output of one feeds input of next
 - **Parallel (scatter-gather)**: Fan out independent tasks to multiple agents, collect and merge results
 - **Pipeline**: Chain of agents where each transforms and passes data forward
 - **Conditional routing**: Choose agent based on task characteristics or intermediate results
 - **Multi-review**: Multiple agents review the same work, coordinator synthesizes agreement
+
+**Advanced Patterns:**
+
+- **DAG orchestration**: Directed acyclic graph of tasks with complex dependency relationships; enables maximum parallelism while respecting dependencies
+- **Consensus/Voting**: Multiple agents independently produce outputs; require N-of-M agreement before proceeding (for high-stakes decisions)
+- **Blackboard/Broadcast**: Post problem to shared space; multiple agents contribute asynchronously until solution emerges (for discovery/brainstorming)
+- **Iterative refinement**: Draft → critique → revise loop until quality threshold met or max iterations reached
+- **Hierarchical delegation**: Coordinator delegates to sub-coordinators for large workflows (coordinator-of-coordinators)
+
+**Pattern Selection Guide:**
+
+| Scenario | Recommended Pattern |
+|----------|---------------------|
+| Simple linear workflow | Sequential |
+| Independent subtasks | Parallel |
+| Data transformation chain | Pipeline |
+| Different paths based on input | Conditional routing |
+| Need multiple perspectives | Multi-review |
+| Complex dependencies | DAG orchestration |
+| High-stakes decision | Consensus/Voting |
+| Open-ended exploration | Blackboard |
+| Quality improvement | Iterative refinement |
+| Very large workflow (20+ subtasks) | Hierarchical delegation |
 
 ### Task Complexity Assessment
 
@@ -88,6 +113,51 @@ Classify each task to determine monitoring depth and state persistence strategy.
 - Presence of dependencies between subtasks
 - User-indicated priority or urgency
 - Estimated scope (feature vs fix vs refactor)
+
+### Human-in-the-Loop (HITL)
+
+When to pause for human authorization before proceeding.
+
+**Mandatory HITL Triggers (Critical tier):**
+
+| Trigger | Description | Action |
+|---------|-------------|--------|
+| Destructive operations | Delete files, drop tables, remove data | Pause, list affected items, request confirmation |
+| External communication | Send emails, post to APIs, publish content | Show draft, request approval |
+| Cost threshold | Estimated cost exceeds user-defined limit | Report estimate, request authorization |
+| Confidence too low | Agent reports low confidence on Critical task | Present options, let user decide |
+| Conflict unresolved | Agents disagree on Critical decision | Present positions, request tiebreaker |
+
+**Optional HITL Triggers (configurable):**
+
+| Trigger | Default | Description |
+|---------|---------|-------------|
+| Before synthesis | Off | Review all subtask results before combining |
+| Before delivery | Off | Final approval before presenting to user |
+| On first failure | Off | Pause on first error rather than auto-retry |
+| Checkpoint intervals | Off | Periodic check-ins during long workflows |
+
+**HITL Request Format:**
+
+```yaml
+hitl_request:
+  workflow_id: string
+  trigger: string              # Which trigger fired
+  context: string              # Why this needs human input
+  options:
+    - label: string            # Option description
+      action: string           # What happens if selected
+      recommended: boolean     # Coordinator's recommendation
+  timeout: string              # How long to wait before default action
+  default_action: string       # What to do if no response
+```
+
+**HITL Response Handling:**
+
+- **Approved**: Proceed with selected option
+- **Rejected**: Abort workflow or request alternative
+- **Modified**: User provides custom instruction
+- **Timeout**: Execute default action (must be safe/reversible)
 
 ### Monitoring Protocol
 
@@ -499,6 +569,7 @@ Extensions inherit all base capabilities and may override:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.3 | 2026-02-08 | Added advanced coordination patterns (DAG, Consensus, Blackboard, Iterative refinement, Hierarchical delegation), human-in-the-loop triggers and protocol |
 | 0.3.2 | 2026-02-08 | Added resource governance (workflow budgets, parallelism control, cancellation propagation), loop protection (circuit breaker, idempotency, depth limits) |
 | 0.3.1 | 2026-02-08 | Added task contracts (SubtaskRequest, SubtaskResult, AgentError, SynthesisRecord schemas), quality gates (pre-synthesis, pre-delivery validation checkpoints) |
 | 0.3.0 | 2026-02-08 | Added hybrid agent discovery, task complexity assessment, adaptive monitoring protocol, adaptive state management with workflow files, context budgeting, expanded agent registry, extension points for domain coordinators |
