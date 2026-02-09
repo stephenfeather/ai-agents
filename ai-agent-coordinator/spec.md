@@ -1,6 +1,6 @@
 # Agent Spec: Coordinator Agent
 
-> Version: 0.3.3 | Status: draft | Domain: orchestration
+> Version: 0.3.4 | Status: draft | Domain: orchestration
 
 ## Identity
 
@@ -426,6 +426,174 @@ For resumable workflows, ensure operations are idempotent:
 - Record completion state before reporting success
 - On resume, skip completed subtasks (don't re-execute)
 
+### Security & Trust Model
+
+Permission propagation and capability boundaries for sub-agents.
+
+**Delegation Model:** Downscoped delegation only - coordinator mints scoped tokens per agent.
+
+**Permission Propagation:**
+
+```yaml
+delegation_token:
+  workflow_id: string
+  agent_id: string
+  allowed_capabilities: string[]
+  allowed_resources: string[]
+  ttl_seconds: 900          # Default 15 min, max 1 hour
+  revoke_on:
+    - agent_completion
+    - agent_abort
+    - security_violation
+    - workflow_cancelled
+```
+
+**Capability Boundaries by Agent Type:**
+
+| Agent Type | Allowed | Denied |
+|------------|---------|--------|
+| Planner | read_spec, read_artifacts, emit_plan | write_repo, network_egress, secret_read |
+| Implementer | read_repo, write_repo_scoped, run_tests | prod_deploy, secret_read_global |
+| Reviewer | read_repo, run_static_analysis | write_repo, network_egress |
+| Deployer | read_artifacts, deploy_scoped, rollback_scoped | raw_secret_export |
+
+**Secret Handling:**
+
+- Secrets resolved at execution time, never persisted in plans
+- Coordinator passes secret references, never raw values
+- Sub-agents receive one-time secret leases (TTL ≤ task TTL)
+- Redact patterns: `api[_-]?key`, `bearer`, `secret`, `token`, `password`
+
+**Confused Deputy Prevention:**
+
+- Every tool call must include `workflow_id`, `agent_id`, `correlation_id`
+- Tool execution layer validates agent was authorized for that tool
+- Sub-agents cannot access coordinator's system prompt unless explicitly passed
+
+### Observability & Tracing
+
+Event correlation and metrics for debugging hierarchical agent calls.
+
+**Required Trace Fields:**
+
+```yaml
+trace:
+  workflow_id: string        # Unique for entire user request
+  run_id: string             # Unique for this execution attempt
+  correlation_id: string     # Unique for this specific action (ULID/UUIDv7)
+  parent_correlation_id: string | null  # Links to parent span
+  agent_id: string
+  step_id: string
+  attempt: integer           # Starts at 1
+```
+
+**Event Schema:**
+
+```yaml
+event:
+  timestamp_utc: RFC3339
+  level: DEBUG | INFO | WARN | ERROR
+  event_type: lifecycle | tool_call | retry | fallback | rollback | security
+  workflow_id: string
+  correlation_id: string
+  parent_correlation_id: string | null
+  agent_id: string
+  step_id: string
+  attempt: integer
+  status: started | succeeded | failed | degraded | rolled_back
+  duration_ms: integer
+  error_type: string | null
+  retryable: boolean
+  action_taken: string | null
+```
+
+**Required SLIs:**
+
+| Metric | Formula | Target |
+|--------|---------|--------|
+| Workflow success rate | successful / started | ≥ 95% |
+| Step success rate | successful_steps / attempted | ≥ 97% |
+| Retry rate | retried_steps / attempted | ≤ 8% |
+| P95 step latency | p95(step_duration_ms) | ≤ 15s (medium) |
+| Rollback rate | rolled_back / started | ≤ 2% |
+
+**Structured Logging:**
+
+- Single-line JSON format
+- Every log includes required trace IDs
+- Redact secrets before emission
+- Stack traces in `error.stack`, not free text
+
+### Recovery Decision Matrix
+
+Deterministic mapping from error conditions to recovery actions.
+
+**Decision Table:**
+
+| Error Type | Criticality | Retry Count | Action |
+|------------|-------------|-------------|--------|
+| TimeoutError | low | 0-2 | Exponential backoff (1s, 2s, 4s) |
+| TimeoutError | high | 0 | Immediate retry on alternate worker |
+| TimeoutError | any | ≥ max | Fallback path, mark degraded |
+| RateLimitError | low/medium | 0-3 | Honor Retry-After, jittered retry |
+| RateLimitError | high | 0-1 | Switch provider/region, retry |
+| AuthError | any | 0 | Refresh credentials once, retry |
+| AuthError | any | ≥ 1 | Fail fast, security incident, no retry |
+| ValidationError | low | 0 | Auto-fix transform once, retry |
+| ValidationError | medium/high | any | Fail step, escalate to coordinator |
+| DependencyUnavailable | low | 0-2 | Backoff retry, then skip optional |
+| DependencyUnavailable | high | any | Invoke rollback if side effects started |
+| SecurityPolicyViolation | any | any | Immediate abort, quarantine, incident |
+
+**Max Retries by Criticality:**
+
+| Criticality | Max Retries |
+|-------------|-------------|
+| Low | 3 |
+| Medium | 2 |
+| High | 1 |
+
+**Rollback Contract:**
+
+```yaml
+rollback:
+  trigger_conditions:
+    - partial_side_effect AND terminal_failure
+    - criticality == high AND step_status == failed
+    - security_violation_detected
+
+  preconditions:
+    - each mutating step defines compensation_action
+    - each step has state_checkpoint_before
+    - compensation_action tested in staging
+
+  execution:
+    order: reverse_topological_order
+    per_step:
+      - run compensation_action
+      - verify restored_state == checkpoint_before
+      - emit rollback event with correlation_id
+    on_compensation_failure:
+      - continue remaining compensations
+      - mark workflow_status: rollback_incomplete
+      - page human operator
+
+  completion_states:
+    - rolled_back
+    - rollback_incomplete
+    - rollback_not_required
+```
+
+**Graceful Degradation:**
+
+| Failure Scope | Strategy | User Contract |
+|---------------|----------|---------------|
+| Optional agent unavailable | Skip, continue core | Result marked `degraded` |
+| External provider down | Failover or cached data | `data_freshness` attached |
+| Non-critical validation fail | Soft-fail + annotate | Partial output + warnings |
+| High-latency dependency | Timeout budget | `incomplete_steps` list |
+| Artifact sanitization uncertain | Quarantine artifact | Artifact withheld for safety |
+
 ### Failure Handling & Recovery
 
 When a delegated task fails:
@@ -569,6 +737,7 @@ Extensions inherit all base capabilities and may override:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.4 | 2026-02-08 | Added security/trust model (delegation tokens, capability boundaries, secret handling), observability/tracing (correlation IDs, event schema, SLIs), recovery decision matrix (error→action mapping, rollback contract, graceful degradation) |
 | 0.3.3 | 2026-02-08 | Added advanced coordination patterns (DAG, Consensus, Blackboard, Iterative refinement, Hierarchical delegation), human-in-the-loop triggers and protocol |
 | 0.3.2 | 2026-02-08 | Added resource governance (workflow budgets, parallelism control, cancellation propagation), loop protection (circuit breaker, idempotency, depth limits) |
 | 0.3.1 | 2026-02-08 | Added task contracts (SubtaskRequest, SubtaskResult, AgentError, SynthesisRecord schemas), quality gates (pre-synthesis, pre-delivery validation checkpoints) |
