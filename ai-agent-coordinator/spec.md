@@ -1,6 +1,6 @@
 # Agent Spec: Coordinator Agent
 
-> Version: 0.3.0 | Status: draft | Domain: orchestration
+> Version: 0.3.1 | Status: draft | Domain: orchestration
 
 ## Identity
 
@@ -190,6 +190,93 @@ Control how much context is passed to sub-agents to avoid overwhelming them.
 
 **Principle:** Sub-agents receive focused context relevant to their specific subtask, not the full orchestration context.
 
+### Task Contracts
+
+Typed schemas for consistent handoffs between Coordinator and agents.
+
+**SubtaskRequest:**
+
+```yaml
+subtask_id: string           # Unique identifier
+workflow_id: string          # Parent workflow reference
+description: string          # What needs to be done
+agent: string                # Target agent identifier
+priority: low | normal | high | critical
+context:
+  requirements: string       # Specific requirements for this subtask
+  inputs: object             # Data/artifacts from prior subtasks
+  constraints: string[]      # Boundaries the agent must respect
+  references: string[]       # File paths or doc references
+timeout_hint: string         # Expected duration (e.g., "5m", "1h")
+depends_on: string[]         # Subtask IDs that must complete first
+```
+
+**SubtaskResult:**
+
+```yaml
+subtask_id: string           # Matches request
+status: completed | failed | blocked | needs_input
+result:
+  summary: string            # Brief description of what was done
+  artifacts: string[]        # File paths created/modified
+  outputs: object            # Data to pass to dependent subtasks
+confidence: high | medium | low  # Agent's confidence in result
+duration: string             # Actual time taken
+notes: string                # Any observations or concerns
+```
+
+**AgentError:**
+
+```yaml
+subtask_id: string
+error_type: transient | deterministic | resource | permission | unknown
+message: string              # Human-readable error description
+recoverable: boolean         # Can this be retried?
+retry_hint: string           # Suggested fix if recoverable
+context: object              # Debug information
+```
+
+**SynthesisRecord:**
+
+```yaml
+workflow_id: string
+subtask_results: SubtaskResult[]
+synthesis:
+  combined_output: string    # Merged result for user
+  conflicts_resolved: object[] # Any conflicting outputs and how resolved
+  gaps_identified: string[]  # Missing pieces noted
+  confidence: high | medium | low
+delivered_at: timestamp
+```
+
+### Quality Gates
+
+Validation checkpoints before result synthesis and delivery.
+
+**Pre-Synthesis Gate (before step 12):**
+
+| Check | Pass Criteria | Fail Action |
+|-------|---------------|-------------|
+| Completeness | All required subtasks have results | Identify missing, re-route or escalate |
+| Confidence threshold | No `low` confidence results for Critical tasks | Request agent re-verification |
+| Error resolution | No unhandled `AgentError` records | Retry, re-route, or escalate |
+| Dependency satisfaction | All `depends_on` chains resolved | Block synthesis until resolved |
+
+**Pre-Delivery Gate (before step 14):**
+
+| Check | Pass Criteria | Fail Action |
+|-------|---------------|-------------|
+| Contradiction detection | No conflicting outputs between agents | Flag for user or attempt reconciliation |
+| Provenance | All artifacts have source attribution | Add missing attribution |
+| User requirements | Original request fully addressed | Note gaps in delivery |
+| Synthesis confidence | Combined result meets confidence threshold | Add caveats or request human review |
+
+**Gate Outcomes:**
+
+- **Pass** - Proceed to next step
+- **Warn** - Proceed with noted concerns
+- **Block** - Cannot proceed; escalate to user
+
 ### Failure Handling & Recovery
 
 When a delegated task fails:
@@ -333,6 +420,7 @@ Extensions inherit all base capabilities and may override:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.1 | 2026-02-08 | Added task contracts (SubtaskRequest, SubtaskResult, AgentError, SynthesisRecord schemas), quality gates (pre-synthesis, pre-delivery validation checkpoints) |
 | 0.3.0 | 2026-02-08 | Added hybrid agent discovery, task complexity assessment, adaptive monitoring protocol, adaptive state management with workflow files, context budgeting, expanded agent registry, extension points for domain coordinators |
 | 0.2.0 | 2026-02-07 | Added coordination patterns, failure handling & recovery, progress tracking detail, deadlock prevention constraint, coordination overhead constraint |
 | 0.1.0 | 2026-02-06 | Initial draft from interview |
