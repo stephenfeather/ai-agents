@@ -1,6 +1,6 @@
 # Agent Spec: Coordinator Agent
 
-> Version: 0.3.1 | Status: draft | Domain: orchestration
+> Version: 0.3.2 | Status: draft | Domain: orchestration
 
 ## Identity
 
@@ -277,6 +277,85 @@ Validation checkpoints before result synthesis and delivery.
 - **Warn** - Proceed with noted concerns
 - **Block** - Cannot proceed; escalate to user
 
+### Resource Governance
+
+Budget and limit controls to prevent runaway workflows.
+
+**Workflow Budgets:**
+
+| Resource | Default Limit | Override |
+|----------|---------------|----------|
+| Max subtasks | 20 per workflow | User can increase for large features |
+| Max agents | 10 concurrent | Reduce for resource-constrained environments |
+| Max depth | 5 delegation levels | Prevent coordinator-of-coordinator chains |
+| Token budget | Inherited from user session | Can allocate per-subtask |
+| Time budget | No default | User-specified deadline triggers urgency |
+
+**Per-Subtask Limits:**
+
+```yaml
+limits:
+  max_retries: 3              # Attempts before escalation
+  timeout: 30m                # Max duration before timeout error
+  token_allocation: 50000     # Context budget for this subtask
+  output_size: 10000          # Max response tokens from agent
+```
+
+**Parallelism Control:**
+
+| Complexity | Max Parallel Agents |
+|------------|---------------------|
+| Simple | 1 (no parallelism needed) |
+| Moderate | 3 |
+| Complex | 5 |
+| Critical | 3 (favor control over speed) |
+
+**Cancellation Propagation:**
+
+When a workflow is cancelled:
+
+1. Mark workflow state as `cancelled`
+2. Send cancellation signal to all active sub-agents
+3. Allow in-flight operations to complete gracefully (30s timeout)
+4. Record partial results for potential resumption
+5. Clean up any temporary artifacts
+
+### Loop Protection
+
+Safeguards against infinite loops and runaway recursion.
+
+**Detection Mechanisms:**
+
+| Pattern | Detection | Response |
+|---------|-----------|----------|
+| Circular delegation | Agent A → B → A | Block with cycle error |
+| Retry storm | Same subtask fails 3+ times | Circuit breaker, escalate |
+| Depth explosion | Delegation depth > max_depth | Block, flatten or escalate |
+| Token runaway | Cumulative tokens exceed budget | Pause, report, request budget increase |
+
+**Circuit Breaker States:**
+
+```
+CLOSED → OPEN → HALF-OPEN → CLOSED
+   │        │        │
+   └─ 3 failures ─┘   │
+              │        └─ 1 success ─┘
+              └─ wait 60s ─┘
+```
+
+- **Closed**: Normal operation, failures counted
+- **Open**: All requests to failing agent blocked, wait period
+- **Half-Open**: Allow single test request; success resets, failure reopens
+
+**Idempotency:**
+
+For resumable workflows, ensure operations are idempotent:
+
+- Use unique `subtask_id` to detect duplicate execution
+- Check if artifact already exists before creating
+- Record completion state before reporting success
+- On resume, skip completed subtasks (don't re-execute)
+
 ### Failure Handling & Recovery
 
 When a delegated task fails:
@@ -420,6 +499,7 @@ Extensions inherit all base capabilities and may override:
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 0.3.2 | 2026-02-08 | Added resource governance (workflow budgets, parallelism control, cancellation propagation), loop protection (circuit breaker, idempotency, depth limits) |
 | 0.3.1 | 2026-02-08 | Added task contracts (SubtaskRequest, SubtaskResult, AgentError, SynthesisRecord schemas), quality gates (pre-synthesis, pre-delivery validation checkpoints) |
 | 0.3.0 | 2026-02-08 | Added hybrid agent discovery, task complexity assessment, adaptive monitoring protocol, adaptive state management with workflow files, context budgeting, expanded agent registry, extension points for domain coordinators |
 | 0.2.0 | 2026-02-07 | Added coordination patterns, failure handling & recovery, progress tracking detail, deadlock prevention constraint, coordination overhead constraint |
