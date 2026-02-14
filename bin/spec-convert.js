@@ -8,7 +8,7 @@ import { Command } from 'commander';
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'fs';
 import { basename, dirname, join, resolve } from 'path';
 import { parseSpec } from '../src/parser.js';
-import { toYaml, toJson } from '../src/converter.js';
+import { toYaml, toJson, toMarkdown } from '../src/converter.js';
 
 const program = new Command();
 
@@ -83,23 +83,23 @@ function convertFile(inputPath, format, outputPath) {
     const content = readFileSync(inputPath, 'utf-8');
     const spec = parseSpec(content);
 
+    // Extract agent name from directory or spec name
+    const parentDir = basename(dirname(inputPath));
+    const agentName = parentDir.startsWith('ai-agent-')
+      ? parentDir.replace('ai-agent-', '')
+      : (spec.name || 'spec').toLowerCase().replace(/\s+/g, '-');
+
+    // Ensure dist directory exists
+    const distDir = resolve(dirname(inputPath), '..', 'dist');
+    if (!existsSync(distDir)) {
+      mkdirSync(distDir, { recursive: true });
+    }
+
     // Convert to target format
     const output = format === 'yaml' ? toYaml(spec) : toJson(spec);
 
-    // Determine output path
+    // Determine output path for main format
     if (!outputPath) {
-      // Extract agent name from directory or spec name
-      const parentDir = basename(dirname(inputPath));
-      const agentName = parentDir.startsWith('ai-agent-')
-        ? parentDir.replace('ai-agent-', '')
-        : (spec.name || 'spec').toLowerCase().replace(/\s+/g, '-');
-
-      // Ensure dist directory exists
-      const distDir = resolve(dirname(inputPath), '..', 'dist');
-      if (!existsSync(distDir)) {
-        mkdirSync(distDir, { recursive: true });
-      }
-
       outputPath = join(distDir, `${agentName}.${format}`);
     } else {
       // Ensure output directory exists
@@ -109,9 +109,15 @@ function convertFile(inputPath, format, outputPath) {
       }
     }
 
-    // Write output
+    // Write main format output
     writeFileSync(outputPath, output, 'utf-8');
     console.log(`Converted: ${inputPath} -> ${outputPath}`);
+
+    // Always generate markdown file with frontmatter
+    const mdOutput = toMarkdown(spec, content);
+    const mdPath = join(distDir, `${agentName}.md`);
+    writeFileSync(mdPath, mdOutput, 'utf-8');
+    console.log(`Generated: ${inputPath} -> ${mdPath}`);
   } catch (error) {
     console.error(`Error converting ${inputPath}: ${error.message}`);
     process.exit(1);

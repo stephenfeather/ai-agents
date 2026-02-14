@@ -4,19 +4,45 @@
  */
 
 /**
- * Parse the version header line
- * Format: > Version: X | Status: Y | Domain: Z
+ * Parse the version/metadata header lines
+ * Format:
+ *   > Version: X | Status: Y | Domain: Z
+ *   > Model: X | Tools: Y, Z
  */
 export function parseVersionHeader(content) {
-  const match = content.match(/^>\s*Version:\s*([^\|]+)\s*\|\s*Status:\s*([^\|]+)\s*\|\s*Domain:\s*(.+)$/m);
-  if (!match) {
-    return { version: null, status: null, domain: null };
-  }
-  return {
-    version: match[1].trim(),
-    status: match[2].trim(),
-    domain: match[3].trim()
+  // Parse version line
+  const versionMatch = content.match(/^>\s*Version:\s*([^\|]+)\s*\|\s*Status:\s*([^\|]+)\s*\|\s*Domain:\s*(.+)$/m);
+  const result = {
+    version: null,
+    status: null,
+    domain: null,
+    model: null,
+    tools: []
   };
+
+  if (versionMatch) {
+    result.version = versionMatch[1].trim();
+    result.status = versionMatch[2].trim();
+    result.domain = versionMatch[3].trim();
+  }
+
+  // Parse model/tools line (optional)
+  const modelMatch = content.match(/^>\s*Model:\s*([^\|]*)\s*\|\s*Tools:\s*(.*)$/m);
+  if (modelMatch) {
+    const model = modelMatch[1].trim();
+    const toolsStr = modelMatch[2].trim();
+
+    if (model) {
+      result.model = model;
+    }
+
+    if (toolsStr && toolsStr !== '-') {
+      // Parse comma-separated tool names
+      result.tools = toolsStr.split(',').map(t => t.trim()).filter(t => t);
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -336,6 +362,8 @@ export function parseSpec(content) {
     version: header.version,
     status: header.status,
     domain: header.domain,
+    model: header.model,
+    tools: header.tools,
     identity: sections.identity ? parseIdentity(sections.identity) : null,
     capabilities: sections.capabilities ? parseCapabilities(sections.capabilities) : [],
     knowledge: sections.knowledge ? parseKnowledge(sections.knowledge) : null,
