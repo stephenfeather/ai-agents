@@ -2,6 +2,8 @@ name: Payment Integration Specialist
 version: 0.1.0
 status: draft
 domain: payment-systems
+model: null
+tools: []
 identity:
   name: Payment Integration Specialist
   role: >-

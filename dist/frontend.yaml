@@ -2,6 +2,8 @@ name: Frontend Expert
 version: 0.1.0
 status: draft
 domain: web-development
+model: null
+tools: []
 identity:
   name: Frontend Expert
   role: >-

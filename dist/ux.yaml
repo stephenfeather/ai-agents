@@ -2,6 +2,8 @@ name: UX Expert
 version: 0.1.0
 status: draft
 domain: user-experience
+model: null
+tools: []
 identity:
   name: UX Expert
   role: >-

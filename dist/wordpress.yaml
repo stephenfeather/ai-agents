@@ -2,6 +2,8 @@ name: WordPress Expert
 version: 0.3.0
 status: draft
 domain: site-management
+model: null
+tools: []
 identity:
   name: WordPress Expert
   role: Provides expert guidance on WordPress site management and administration.

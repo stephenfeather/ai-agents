@@ -1,0 +1,20 @@
+name: null
+version: null
+status: null
+domain: null
+model: null
+tools: []
+identity: null
+capabilities: []
+knowledge: null
+constraints: null
+interactionStyle: null
+successCriteria: null
+interfaces: null
+versionHistory:
+  - version: 0.2.0
+    date: '2026-02-07'
+    changes: Added security, observability, caching, health checks; expanded constraints
+  - version: 0.1.0
+    date: '2026-02-07'
+    changes: Initial specification

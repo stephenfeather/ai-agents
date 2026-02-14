@@ -2,6 +2,8 @@ name: Localization Expert
 version: 0.1.0
 status: draft
 domain: localization
+model: null
+tools: []
 identity:
   name: Localization Expert
   role: >-

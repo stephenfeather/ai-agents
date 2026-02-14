@@ -2,6 +2,8 @@ name: WooCommerce Expert
 version: 0.2.0
 status: draft
 domain: e-commerce
+model: null
+tools: []
 identity:
   name: WooCommerce Expert
   role: Provides expert guidance on WooCommerce store management and configuration.

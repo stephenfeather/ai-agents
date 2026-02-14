@@ -2,6 +2,8 @@ name: Systems Integration Expert
 version: 0.1.0
 status: draft
 domain: systems-programming
+model: null
+tools: []
 identity:
   name: Systems Integration Expert
   role: >-

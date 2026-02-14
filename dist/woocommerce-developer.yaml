@@ -2,6 +2,8 @@ name: WooCommerce Developer
 version: 0.2.0
 status: draft
 domain: e-commerce-development
+model: null
+tools: []
 identity:
   name: WooCommerce Developer
   role: Develops WooCommerce extensions, integrations, and theme customizations.

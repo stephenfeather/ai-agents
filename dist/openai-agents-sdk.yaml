@@ -2,6 +2,8 @@ name: OpenAI Agents SDK Expert
 version: 0.1.0
 status: draft
 domain: llm-applications
+model: null
+tools: []
 identity:
   name: OpenAI Agents SDK Expert
   role: Builds AI agents using the OpenAI Agents SDK with tools, handoffs, guardrails, and multi-agent orchestration.

@@ -2,6 +2,8 @@ name: WordPress Developer
 version: 0.3.0
 status: draft
 domain: software-development
+model: null
+tools: []
 identity:
   name: WordPress Developer
   role: Builds WordPress themes, plugins, and customizations.

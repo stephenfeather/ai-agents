@@ -2,6 +2,8 @@ name: null
 version: null
 status: null
 domain: null
+model: null
+tools: []
 identity: null
 capabilities: []
 knowledge: null

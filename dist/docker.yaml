@@ -2,6 +2,8 @@ name: Docker Expert
 version: 0.2.0
 status: draft
 domain: containerization
+model: null
+tools: []
 identity:
   name: Docker Expert
   role: Provides expert guidance on Docker containerization, image optimization, and container management.

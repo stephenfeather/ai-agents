@@ -1,8 +1,10 @@
 {
   "name": "Coordinator Agent",
-  "version": "0.2.0",
+  "version": "0.4.0",
   "status": "draft",
   "domain": "orchestration",
+  "model": null,
+  "tools": [],
   "identity": {
     "name": "Coordinator Agent",
     "role": "Orchestrates multi-agent workflows and delegates tasks to specialist agents.",
@@ -15,8 +17,13 @@
       "delegatesTo": null
     },
     {
-      "capability": "Agent selection",
-      "description": "Route tasks to appropriate specialist agents",
+      "capability": "Agent discovery",
+      "description": "Locate and select appropriate specialist agents",
+      "delegatesTo": null
+    },
+    {
+      "capability": "Complexity assessment",
+      "description": "Classify tasks to determine monitoring and persistence strategy",
       "delegatesTo": null
     },
     {
@@ -42,6 +49,11 @@
     {
       "capability": "Failure handling",
       "description": "Detect agent failures, retry, re-route, or escalate",
+      "delegatesTo": null
+    },
+    {
+      "capability": "State management",
+      "description": "Persist workflow state for complex/resumable tasks",
       "delegatesTo": null
     },
     {
@@ -95,6 +107,16 @@
         "metric": null,
         "target": null,
         "tool": null
+      },
+      {
+        "metric": null,
+        "target": null,
+        "tool": null
+      },
+      {
+        "metric": null,
+        "target": null,
+        "tool": null
       }
     ],
     "notes": {}
@@ -105,6 +127,36 @@
     "handsOffTo": []
   },
   "versionHistory": [
+    {
+      "version": "0.4.0",
+      "date": "2026-02-09",
+      "changes": "Added TaskMaster integration as task state backend (MCP tools, field mapping, status mapping, workflow lifecycle, example transformation)"
+    },
+    {
+      "version": "0.3.4",
+      "date": "2026-02-08",
+      "changes": "Added security/trust model (delegation tokens, capability boundaries, secret handling), observability/tracing (correlation IDs, event schema, SLIs), recovery decision matrix (error→action mapping, rollback contract, graceful degradation)"
+    },
+    {
+      "version": "0.3.3",
+      "date": "2026-02-08",
+      "changes": "Added advanced coordination patterns (DAG, Consensus, Blackboard, Iterative refinement, Hierarchical delegation), human-in-the-loop triggers and protocol"
+    },
+    {
+      "version": "0.3.2",
+      "date": "2026-02-08",
+      "changes": "Added resource governance (workflow budgets, parallelism control, cancellation propagation), loop protection (circuit breaker, idempotency, depth limits)"
+    },
+    {
+      "version": "0.3.1",
+      "date": "2026-02-08",
+      "changes": "Added task contracts (SubtaskRequest, SubtaskResult, AgentError, SynthesisRecord schemas), quality gates (pre-synthesis, pre-delivery validation checkpoints)"
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-02-08",
+      "changes": "Added hybrid agent discovery, task complexity assessment, adaptive monitoring protocol, adaptive state management with workflow files, context budgeting, expanded agent registry, extension points for domain coordinators"
+    },
     {
       "version": "0.2.0",
       "date": "2026-02-07",
