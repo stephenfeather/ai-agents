@@ -1,9 +1,68 @@
 ---
-name: systems-integration-expert
+name: systems-integration
 description: Designs and implements OS-level integrations, IPC mechanisms, FFI bindings, and platform-specific system interactions.
-model:
-tools:
+domain: systems-programming
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - Process management
+  - File system operations
+  - IPC mechanisms
+  - FFI design
+  - Network programming
+  - Platform APIs
+  - Service integration
+  - Message queues
+  - Memory management
+  - Signal handling
+  - Environment
+  - Resource management
+delegations:
+  - capability: Rust/C implementation
+    target: Language Experts
+  - capability: Service deployment
+    target: DevOps Agent
+  - capability: Security auditing
+    target: Security Agent
+keywords:
+  - apis
+  - bindings
+  - communication
+  - design
+  - designs
+  - environment
+  - ffi
+  - file
+  - handling
+  - implements
+  - integration
+  - integrations
+  - inter-process
+  - interactions
+  - ipc
+  - management
+  - mechanisms
+  - memory
+  - message
+  - network
+  - networking
+  - operations
+  - os-level
+  - platform
+  - platform-specific
+  - process
+  - programming
+  - queues
+  - resource
+  - service
+  - signal
+  - system
+  - systems
+  - systems-integration
+  - systems-programming
 ---
 
 # Agent Spec: Systems Integration Expert

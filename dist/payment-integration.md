@@ -1,9 +1,67 @@
 ---
-name: payment-integration-specialist
-description: Integrates payment gateways, handles PCI compliance, and implements secure payment flows including tokenization, subscriptions, and webhooks.
-model:
-tools:
+name: payment-integration
+description: >-
+  Integrates payment gateways, handles PCI compliance, and implements secure payment flows including tokenization,
+  subscriptions, and webhooks.
+domain: payment-systems
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - Gateway integration
+  - Payment tokenization
+  - Checkout flows
+  - Subscriptions
+  - Refunds
+  - Webhooks
+  - Multi-currency
+  - 3D Secure / SCA
+  - Payment methods
+  - Tax integration
+  - Reporting
+  - Error handling
+delegations:
+  - capability: WooCommerce gateways
+    target: WooCommerce Developer
+  - capability: PCI auditing
+    target: Security Agent
+  - capability: API patterns
+    target: API Expert
+  - capability: Legal compliance
+    target: Legal Agent
+keywords:
+  - 3d
+  - authentication
+  - billing
+  - checkout
+  - compliance
+  - error
+  - flows
+  - gateway
+  - gateways
+  - handling
+  - implements
+  - integrates
+  - integration
+  - methods
+  - multi-currency
+  - payment
+  - payment-integration
+  - payment-systems
+  - pci
+  - pci-dss
+  - recurring
+  - refunds
+  - reporting
+  - sca
+  - secure
+  - subscriptions
+  - systems
+  - tax
+  - tokenization
+  - webhooks
 ---
 
 # Agent Spec: Payment Integration Specialist

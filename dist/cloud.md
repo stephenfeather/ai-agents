@@ -1,9 +1,16 @@
 ---
-name:
-description:
-model:
-tools:
-version:
+name: cloud
+description: null
+domain: null
+status: null
+model: null
+tools: null
+version: null
+standalone: null
+capabilities: null
+delegations: null
+keywords:
+  - cloud
 ---
 
 # Cloud Agent Specification

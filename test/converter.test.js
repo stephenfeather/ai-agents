@@ -8,6 +8,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import yamlLib from 'js-yaml';
 
 import {
   parseVersionHeader,
@@ -23,10 +24,11 @@ import {
   parseSuccessCriteria,
   parseInterfaces,
   parseVersionHistory,
-  parseSpec
+  parseSpec,
+  deriveKeywords
 } from '../src/parser.js';
 
-import { toYaml, toJson } from '../src/converter.js';
+import { toYaml, toJson, toMarkdown } from '../src/converter.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -205,26 +207,197 @@ describe('full spec parsing', () => {
   });
 });
 
-describe('toYaml', () => {
-  test('converts spec to valid YAML', () => {
-    const spec = parseSpec(phpSpecContent);
-    const yaml = toYaml(spec);
+// ────────────────────────────────────────────
+// deriveKeywords
+// ────────────────────────────────────────────
 
-    assert.ok(yaml.includes('name: PHP Expert'));
-    assert.ok(yaml.includes('version: 0.2.0'));
-    assert.ok(yaml.includes('capabilities:'));
+describe('deriveKeywords', () => {
+  test('derives keywords from a well-formed spec', () => {
+    const spec = parseSpec(phpSpecContent);
+    const kw = deriveKeywords(spec, 'php');
+
+    // Must include the agent slug
+    assert.ok(kw.includes('php'));
+    // Must include domain token
+    assert.ok(kw.includes('software-development'));
+    // Must include a direct capability word (e.g. "write", "debug", "refactor")
+    assert.ok(kw.includes('debug'));
+    // Sorted
+    for (let i = 1; i < kw.length; i++) {
+      assert.ok(kw[i] >= kw[i - 1], `Expected sorted order: "${kw[i - 1]}" <= "${kw[i]}"`);
+    }
+    // All lowercase
+    kw.forEach(w => assert.equal(w, w.toLowerCase()));
+  });
+
+  test('derives keywords from an empty/minimal spec', () => {
+    const emptySpec = {
+      name: null, version: null, status: null, domain: null,
+      model: null, tools: [], identity: null, capabilities: [],
+      knowledge: null, constraints: null, interactionStyle: null,
+      successCriteria: null, interfaces: null, versionHistory: []
+    };
+    const kw = deriveKeywords(emptySpec, 'angular');
+    assert.ok(kw.includes('angular'));
+    // Should still return something (at least the agent name)
+    assert.ok(kw.length >= 1);
+  });
+
+  test('deduplicates keywords', () => {
+    const spec = parseSpec(phpSpecContent);
+    const kw = deriveKeywords(spec, 'php');
+    const unique = new Set(kw);
+    assert.equal(kw.length, unique.size, 'Keywords should be deduplicated');
+  });
+
+  test('includes multi-word agent names as both slug and tokens', () => {
+    const emptySpec = {
+      name: null, version: null, status: null, domain: null,
+      model: null, tools: [], identity: null, capabilities: [],
+      knowledge: null, constraints: null, interactionStyle: null,
+      successCriteria: null, interfaces: null, versionHistory: []
+    };
+    const kw = deriveKeywords(emptySpec, 'wordpress-developer');
+    assert.ok(kw.includes('wordpress-developer'));
+    assert.ok(kw.includes('wordpress'));
+    assert.ok(kw.includes('developer'));
   });
 });
 
+// ────────────────────────────────────────────
+// toYaml (updated: with agentName)
+// ────────────────────────────────────────────
+
+describe('toYaml', () => {
+  test('converts spec to valid YAML without agentName (backward compat)', () => {
+    const spec = parseSpec(phpSpecContent);
+    const result = toYaml(spec);
+
+    assert.ok(result.includes('name: PHP Expert'));
+    assert.ok(result.includes('capabilities:'));
+    // Should NOT have routing key when agentName omitted
+    assert.ok(!result.includes('routing:'));
+  });
+
+  test('includes routing key when agentName provided', () => {
+    const spec = parseSpec(phpSpecContent);
+    const result = toYaml(spec, 'php');
+    const parsed = yamlLib.load(result);
+
+    assert.ok(parsed.routing, 'Should have routing key');
+    assert.equal(parsed.routing.name, 'php');
+    assert.equal(parsed.routing.domain, 'software-development');
+    assert.equal(parsed.routing.status, 'draft');
+    assert.equal(parsed.routing.standalone, true);
+    assert.ok(Array.isArray(parsed.routing.capabilities));
+    assert.ok(parsed.routing.capabilities.includes('Write code'));
+    assert.ok(Array.isArray(parsed.routing.delegations));
+    assert.ok(parsed.routing.delegations.some(d => d.target === 'Database Expert'));
+    assert.ok(Array.isArray(parsed.routing.keywords));
+    assert.ok(parsed.routing.keywords.includes('php'));
+  });
+});
+
+// ────────────────────────────────────────────
+// toJson (updated: with agentName)
+// ────────────────────────────────────────────
+
 describe('toJson', () => {
-  test('converts spec to valid JSON', () => {
+  test('converts spec to valid JSON without agentName (backward compat)', () => {
     const spec = parseSpec(phpSpecContent);
     const json = toJson(spec);
-
-    // Should be parseable
     const parsed = JSON.parse(json);
+
     assert.equal(parsed.name, 'PHP Expert');
-    assert.equal(parsed.version, '0.2.0');
     assert.ok(parsed.capabilities.length > 0);
+    // No routing key
+    assert.equal(parsed.routing, undefined);
+  });
+
+  test('includes routing key when agentName provided', () => {
+    const spec = parseSpec(phpSpecContent);
+    const json = toJson(spec, 'php');
+    const parsed = JSON.parse(json);
+
+    assert.ok(parsed.routing, 'Should have routing key');
+    assert.equal(parsed.routing.name, 'php');
+    assert.equal(parsed.routing.domain, 'software-development');
+    assert.ok(Array.isArray(parsed.routing.capabilities));
+    assert.ok(Array.isArray(parsed.routing.keywords));
+    // routing should be the first key
+    const keys = Object.keys(parsed);
+    assert.equal(keys[0], 'routing');
+  });
+});
+
+// ────────────────────────────────────────────
+// toMarkdown (new tests)
+// ────────────────────────────────────────────
+
+describe('toMarkdown', () => {
+  test('generates enriched frontmatter when agentName provided', () => {
+    const spec = parseSpec(phpSpecContent);
+    const md = toMarkdown(spec, phpSpecContent, 'php');
+
+    // Extract frontmatter between --- markers
+    const fmMatch = md.match(/^---\n([\s\S]*?)\n---/);
+    assert.ok(fmMatch, 'Should have YAML frontmatter');
+
+    const fm = yamlLib.load(fmMatch[1]);
+    assert.equal(fm.name, 'php');
+    assert.equal(fm.domain, 'software-development');
+    assert.equal(fm.status, 'draft');
+    assert.equal(fm.standalone, true);
+    assert.ok(Array.isArray(fm.capabilities));
+    assert.ok(fm.capabilities.length > 0);
+    assert.ok(Array.isArray(fm.delegations));
+    assert.ok(fm.delegations.length > 0);
+    assert.ok(Array.isArray(fm.keywords));
+    assert.ok(fm.keywords.includes('php'));
+    // Still has version
+    assert.ok(fm.version);
+  });
+
+  test('generates legacy frontmatter when agentName omitted', () => {
+    const spec = parseSpec(phpSpecContent);
+    const md = toMarkdown(spec, phpSpecContent);
+
+    const fmMatch = md.match(/^---\n([\s\S]*?)\n---/);
+    assert.ok(fmMatch);
+
+    const fm = yamlLib.load(fmMatch[1]);
+    // Legacy: name is derived from spec.name, not agent slug
+    assert.equal(fm.name, 'php-expert');
+    // No routing-specific fields
+    assert.equal(fm.domain, undefined);
+    assert.equal(fm.capabilities, undefined);
+    assert.equal(fm.keywords, undefined);
+  });
+
+  test('includes original markdown content after frontmatter', () => {
+    const spec = parseSpec(phpSpecContent);
+    const md = toMarkdown(spec, phpSpecContent, 'php');
+
+    // Content after frontmatter should include the original spec
+    assert.ok(md.includes('# Agent Spec: PHP Expert'));
+    assert.ok(md.includes('## Capabilities'));
+  });
+
+  test('handles minimal spec with agentName', () => {
+    const emptySpec = {
+      name: null, version: null, status: null, domain: null,
+      model: null, tools: [], identity: null, capabilities: [],
+      knowledge: null, constraints: null, interactionStyle: null,
+      successCriteria: null, interfaces: null, versionHistory: []
+    };
+    const md = toMarkdown(emptySpec, '# Minimal', 'angular');
+
+    const fmMatch = md.match(/^---\n([\s\S]*?)\n---/);
+    assert.ok(fmMatch);
+
+    const fm = yamlLib.load(fmMatch[1]);
+    assert.equal(fm.name, 'angular');
+    assert.ok(Array.isArray(fm.keywords));
+    assert.ok(fm.keywords.includes('angular'));
   });
 });

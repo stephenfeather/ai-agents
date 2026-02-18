@@ -1,9 +1,84 @@
 ---
-name: data-science-expert
-description: Designs and implements machine learning workflows, data analysis pipelines, and statistical models using Python data science tools.
-model:
-tools:
+name: data-science
+description: >-
+  Designs and implements machine learning workflows, data analysis pipelines, and statistical models using Python data
+  science tools.
+domain: data-science
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Data analysis
+  - Visualization
+  - ML workflows
+  - Deep learning
+  - Feature engineering
+  - Model evaluation
+  - Statistical analysis
+  - NLP
+  - Computer vision
+  - Jupyter workflows
+  - MLOps
+  - Data pipelines
+  - Model interpretability
+  - Data quality
+  - Causal inference
+delegations:
+  - capability: Python core
+    target: Python Expert
+  - capability: Database queries
+    target: Database Expert
+  - capability: Cloud ML
+    target: Cloud Agent
+  - capability: Model deployment
+    target: DevOps Agent
+  - capability: Data privacy/compliance
+    target: Data Governance Expert
+  - capability: Fairness audits
+    target: Ethics Expert
+  - capability: Data engineering
+    target: Data Engineering Agent
+keywords:
+  - analysis
+  - bias
+  - calibration
+  - causal
+  - computer
+  - data
+  - data-science
+  - deep
+  - designs
+  - engineering
+  - evaluation
+  - fairness
+  - feature
+  - implements
+  - inference
+  - interpretability
+  - jupyter
+  - learning
+  - machine
+  - manipulation
+  - methods
+  - ml
+  - mlops
+  - model
+  - models
+  - monitoring
+  - nlp
+  - pipelines
+  - python
+  - quality
+  - science
+  - statistical
+  - stores
+  - tools
+  - uncertainty
+  - vision
+  - visualization
+  - workflows
 ---
 
 # Agent Spec: Data Science Expert

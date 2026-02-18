@@ -1,9 +1,90 @@
 ---
-name: pydanticai-expert
+name: pydantic-ai
 description: Builds type-safe AI agents using PydanticAI with structured outputs, dependency injection, and multi-model support.
-model:
-tools:
+domain: llm-applications
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - Agent definition
+  - Tool registration
+  - Structured output
+  - Dependency injection
+  - Result validation
+  - Streaming
+  - Multi-model setup
+  - Testing
+  - Observability
+  - Dynamic prompts
+  - Message history
+  - Retries
+delegations:
+  - capability: Pydantic core
+    target: Python Expert
+  - capability: LLM specifics
+    target: LLM Provider Agent
+  - capability: Python async
+    target: Python Expert
+  - capability: Deployment
+    target: DevOps Expert
+keywords:
+  - agent
+  - agents
+  - ai
+  - applications
+  - builds
+  - configuration
+  - constraints
+  - conversations
+  - cost
+  - creation
+  - definition
+  - dependency
+  - depstype
+  - dynamic
+  - estimation
+  - functionmodel
+  - history
+  - injection
+  - integration
+  - llm
+  - llm-applications
+  - logfire
+  - message
+  - model
+  - multi-model
+  - multi-turn
+  - observability
+  - output
+  - outputs
+  - patterns
+  - prompt
+  - prompts
+  - pydantic
+  - pydantic-ai
+  - pydanticai
+  - registration
+  - responses
+  - result
+  - retries
+  - runcontext
+  - setup
+  - strategies
+  - streaming
+  - structured
+  - support
+  - system
+  - testing
+  - testmodel
+  - tool
+  - tracking
+  - type-safe
+  - types
+  - usage
+  - validation
+  - validators
 ---
 
 # Agent Spec: PydanticAI Expert

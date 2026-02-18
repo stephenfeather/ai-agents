@@ -4,12 +4,65 @@
  */
 
 import yaml from 'js-yaml';
+import { deriveKeywords } from './parser.js';
 
 /**
- * Convert spec object to YAML string
+ * Build a routing object for agent selection / Task tool routing.
+ *
+ * @param {object} spec  - Parsed spec from parseSpec()
+ * @param {string} agentName - Directory slug (e.g. "php", "wordpress-developer")
+ * @returns {object} Routing metadata
  */
-export function toYaml(spec) {
-  return yaml.dump(spec, {
+function buildRoutingObject(spec, agentName) {
+  const name = agentName || null;
+
+  const description = spec.identity?.role || spec.name || null;
+
+  const domain = spec.domain ? spec.domain.toLowerCase() : null;
+
+  const status = spec.status ? spec.status.toLowerCase() : null;
+
+  // Derive standalone boolean from interfaces
+  let standalone = null;
+  if (spec.interfaces?.standalone) {
+    const val = spec.interfaces.standalone.toLowerCase();
+    standalone = val.includes('yes') || val.includes('independently');
+  }
+
+  // Direct (non-delegated) capability names
+  const capabilities = (spec.capabilities || [])
+    .filter(c => !c.delegatesTo && c.capability)
+    .map(c => c.capability);
+
+  // Delegations: capability + target pairs
+  const delegations = (spec.capabilities || [])
+    .filter(c => c.delegatesTo && c.capability)
+    .map(c => ({ capability: c.capability, target: c.delegatesTo }));
+
+  const keywords = deriveKeywords(spec, agentName);
+
+  return {
+    name,
+    description,
+    domain,
+    status,
+    standalone,
+    capabilities: capabilities.length > 0 ? capabilities : null,
+    delegations: delegations.length > 0 ? delegations : null,
+    keywords: keywords.length > 0 ? keywords : null
+  };
+}
+
+/**
+ * Convert spec object to YAML string.
+ * When agentName is provided, a top-level `routing` key is prepended.
+ */
+export function toYaml(spec, agentName) {
+  const obj = agentName
+    ? { routing: buildRoutingObject(spec, agentName), ...spec }
+    : spec;
+
+  return yaml.dump(obj, {
     indent: 2,
     lineWidth: 120,
     noRefs: true,
@@ -18,39 +71,62 @@ export function toYaml(spec) {
 }
 
 /**
- * Convert spec object to JSON string
+ * Convert spec object to JSON string.
+ * When agentName is provided, a top-level `routing` key is prepended.
  */
-export function toJson(spec) {
-  return JSON.stringify(spec, null, 2);
+export function toJson(spec, agentName) {
+  const obj = agentName
+    ? { routing: buildRoutingObject(spec, agentName), ...spec }
+    : spec;
+
+  return JSON.stringify(obj, null, 2);
 }
 
 /**
- * Convert spec object to Markdown with YAML frontmatter
- * The markdown includes the frontmatter at the top, then the full spec object rendered as readable markdown
+ * Convert spec object to Markdown with YAML frontmatter.
+ * When agentName is provided, the frontmatter includes full routing fields.
  */
-export function toMarkdown(spec, originalMarkdownContent) {
-  // Build frontmatter
-  const frontmatter = {
-    name: spec.name ? spec.name.toLowerCase().replace(/\s+/g, '-') : null,
-    description: spec.identity?.role || spec.name || null,
-    model: spec.model || null,
-    tools: spec.tools && spec.tools.length > 0 ? spec.tools : null,
-    version: spec.version || null
-  };
+export function toMarkdown(spec, originalMarkdownContent, agentName) {
+  let frontmatter;
 
-  // Format YAML frontmatter
-  const yamlLines = [];
-  Object.entries(frontmatter).forEach(([key, value]) => {
-    if (value === null) {
-      yamlLines.push(`${key}:`);
-    } else if (Array.isArray(value)) {
-      yamlLines.push(`${key}: [${value.map(v => `"${v}"`).join(', ')}]`);
-    } else {
-      yamlLines.push(`${key}: ${value}`);
-    }
-  });
+  if (agentName) {
+    const routing = buildRoutingObject(spec, agentName);
+    frontmatter = {
+      name: routing.name,
+      description: routing.description,
+      domain: routing.domain,
+      status: routing.status,
+      model: spec.model || null,
+      tools: spec.tools && spec.tools.length > 0 ? spec.tools : null,
+      version: spec.version || null,
+      standalone: routing.standalone,
+      capabilities: routing.capabilities,
+      delegations: routing.delegations,
+      keywords: routing.keywords
+    };
+  } else {
+    // Legacy path: minimal frontmatter (backward compat)
+    frontmatter = {
+      name: spec.name ? spec.name.toLowerCase().replace(/\s+/g, '-') : null,
+      description: spec.identity?.role || spec.name || null,
+      model: spec.model || null,
+      tools: spec.tools && spec.tools.length > 0 ? spec.tools : null,
+      version: spec.version || null
+    };
+  }
 
-  const frontmatterBlock = `---\n${yamlLines.join('\n')}\n---\n\n`;
+  // Use yaml.dump for correct nested object/array serialization
+  const yamlStr = yaml.dump(frontmatter, {
+    indent: 2,
+    lineWidth: 120,
+    noRefs: true,
+    sortKeys: false,
+    // Don't quote simple strings unnecessarily
+    quotingType: '"',
+    forceQuotes: false
+  }).trimEnd();
+
+  const frontmatterBlock = `---\n${yamlStr}\n---\n\n`;
 
   // Use original markdown if provided, otherwise generate from spec object
   if (originalMarkdownContent) {

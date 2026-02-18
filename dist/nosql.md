@@ -1,9 +1,16 @@
 ---
-name:
-description:
-model:
-tools:
-version:
+name: nosql
+description: null
+domain: null
+status: null
+model: null
+tools: null
+version: null
+standalone: null
+capabilities: null
+delegations: null
+keywords:
+  - nosql
 ---
 
 # NoSQL Agent Specification

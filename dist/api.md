@@ -1,9 +1,61 @@
 ---
-name: api-expert
+name: api
 description: Provides expert guidance on API design, documentation, and integration.
-model:
-tools:
+domain: software-development
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - API design
+  - Schema design
+  - Documentation
+  - Versioning
+  - Authentication
+  - Authorization
+  - Rate limiting
+  - Error handling
+  - Integration patterns
+  - Async APIs
+  - API lifecycle
+  - Testing strategy
+  - Client SDK
+  - Observability
+delegations:
+  - capability: Implementation code
+    target: Language Experts
+  - capability: Database queries
+    target: Database Expert
+  - capability: Security audits
+    target: Security Agent
+  - capability: Infrastructure
+    target: DevOps Agent
+keywords:
+  - api
+  - apis
+  - async
+  - authentication
+  - authorization
+  - client
+  - design
+  - development
+  - documentation
+  - error
+  - handling
+  - integration
+  - lifecycle
+  - limiting
+  - observability
+  - patterns
+  - rate
+  - schema
+  - sdk
+  - software
+  - software-development
+  - strategy
+  - testing
+  - versioning
 ---
 
 # Agent Spec: API Expert

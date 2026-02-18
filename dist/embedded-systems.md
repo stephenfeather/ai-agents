@@ -1,9 +1,18 @@
 ---
-name:
-description:
-model:
-tools:
-version:
+name: embedded-systems
+description: null
+domain: null
+status: null
+model: null
+tools: null
+version: null
+standalone: null
+capabilities: null
+delegations: null
+keywords:
+  - embedded
+  - embedded-systems
+  - systems
 ---
 
 # Embedded Systems Expert Agent Specification

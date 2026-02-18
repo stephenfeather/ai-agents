@@ -1,3 +1,78 @@
+routing:
+  name: rust
+  description: Provides expert guidance on all aspects of Rust development.
+  domain: software-development
+  status: draft
+  standalone: true
+  capabilities:
+    - Write code
+    - Review code
+    - Debug
+    - Refactor
+    - Architect
+    - Test
+    - Optimize
+    - Dependencies
+    - Security review
+    - Migration
+    - Lifetimes
+    - Traits
+    - Async
+    - Error handling
+    - Concurrency
+    - Proc macros
+  delegations:
+    - capability: Database/SQL
+      target: Database Expert
+    - capability: API design
+      target: API Agent
+    - capability: Web frameworks
+      target: Framework Specialists
+    - capability: Embedded/no_std
+      target: Embedded Systems Agent
+    - capability: WebAssembly
+      target: WebAssembly Agent
+    - capability: FFI/C interop
+      target: Systems Integration Agent
+    - capability: Documentation
+      target: Documentation Agent
+    - capability: DevOps
+      target: DevOps Agent
+    - capability: Cloud
+      target: Cloud Agent
+  keywords:
+    - architect
+    - async
+    - channel
+    - code
+    - concurrency
+    - core
+    - debug
+    - dependencies
+    - development
+    - error
+    - handling
+    - language
+    - library
+    - lifetimes
+    - macro
+    - macros
+    - migration
+    - optimize
+    - proc
+    - procedural
+    - refactor
+    - review
+    - rust
+    - security
+    - software
+    - software-development
+    - stable
+    - standard
+    - system
+    - test
+    - traits
+    - write
 name: Rust Expert
 version: 0.3.0
 status: draft

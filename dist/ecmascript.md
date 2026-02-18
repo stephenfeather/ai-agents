@@ -1,9 +1,64 @@
 ---
-name: ecmascript-expert
+name: ecmascript
 description: Provides expert guidance on all aspects of ECMAScript/JavaScript development.
-model:
-tools:
+domain: software-development
+status: draft
+model: null
+tools: null
 version: 0.3.0
+standalone: true
+capabilities:
+  - Write code
+  - Review code
+  - Debug
+  - Refactor
+  - Architect
+  - Test
+  - Optimize
+  - Dependencies
+  - Security review
+  - Migration
+  - Type system
+  - Error handling
+  - Observability
+  - Internationalization
+  - Monorepo management
+delegations: null
+keywords:
+  - "18"
+  - architect
+  - bun
+  - code
+  - debug
+  - deno
+  - dependencies
+  - development
+  - ecmascript
+  - error
+  - es2024
+  - es5
+  - handling
+  - internationalization
+  - javascript
+  - js
+  - lts
+  - management
+  - migration
+  - monorepo
+  - node
+  - observability
+  - optimize
+  - refactor
+  - review
+  - security
+  - software
+  - software-development
+  - system
+  - test
+  - type
+  - typescript
+  - versions
+  - write
 ---
 
 # Agent Spec: ECMAScript Expert

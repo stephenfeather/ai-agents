@@ -1,9 +1,69 @@
 ---
-name: localization-expert
-description: Implements internationalization (i18n) and localization (l10n) for software, including translation workflows, locale-aware formatting, and cultural adaptation.
-model:
-tools:
+name: localization
+description: >-
+  Implements internationalization (i18n) and localization (l10n) for software, including translation workflows,
+  locale-aware formatting, and cultural adaptation.
+domain: localization
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - i18n architecture
+  - String extraction
+  - Translation catalogs
+  - Pluralization
+  - Date/time formatting
+  - Number formatting
+  - RTL support
+  - TMS integration
+  - Unicode handling
+  - Cultural adaptation
+  - ICU MessageFormat
+  - Pseudo-localization
+delegations:
+  - capability: Library integration
+    target: Language Experts
+  - capability: Localized UI
+    target: Frontend Agent
+  - capability: Translated docs
+    target: Documentation Agent
+keywords:
+  - adaptation
+  - architecture
+  - catalogs
+  - concepts
+  - cultural
+  - date
+  - extraction
+  - formatting
+  - handling
+  - i18n
+  - icu
+  - implements
+  - integration
+  - internationalization
+  - l10n
+  - languages
+  - locale-aware
+  - localization
+  - management
+  - message
+  - messageformat
+  - number
+  - pluralization
+  - pseudo-localization
+  - rtl
+  - software
+  - standards
+  - string
+  - support
+  - time
+  - tms
+  - translation
+  - unicode
+  - workflows
 ---
 
 # Agent Spec: Localization Expert

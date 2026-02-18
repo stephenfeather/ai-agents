@@ -1,9 +1,73 @@
 ---
-name: python-expert
+name: python
 description: Provides expert guidance on all aspects of Python development.
-model:
-tools:
+domain: software-development
+status: draft
+model: null
+tools: null
 version: 0.3.0
+standalone: true
+capabilities:
+  - Write code
+  - Review code
+  - Debug
+  - Refactor
+  - Architect
+  - Test
+  - Optimize
+  - Dependencies
+  - Security review
+  - Migration
+  - Type system
+  - CLI tools
+  - Scripting
+  - Packaging
+  - Observability
+  - Concurrency
+delegations:
+  - capability: Database/SQL
+    target: Database Expert
+  - capability: API design
+    target: API Agent
+  - capability: Web frameworks
+    target: Framework Specialists
+  - capability: Data science/ML
+    target: Data Science Agent
+  - capability: Documentation
+    target: Documentation Agent
+  - capability: DevOps
+    target: DevOps Agent
+  - capability: Cloud
+    target: Cloud Agent
+keywords:
+  - architect
+  - cli
+  - code
+  - concurrency
+  - cpython
+  - debug
+  - dependencies
+  - development
+  - implementation
+  - library
+  - migration
+  - observability
+  - optimize
+  - packaging
+  - python
+  - refactor
+  - reference
+  - review
+  - scripting
+  - security
+  - software
+  - software-development
+  - standard
+  - system
+  - test
+  - tools
+  - type
+  - write
 ---
 
 # Agent Spec: Python Expert

@@ -1,3 +1,13 @@
+routing:
+  name: architecture
+  description: null
+  domain: null
+  status: null
+  standalone: null
+  capabilities: null
+  delegations: null
+  keywords:
+    - architecture
 name: null
 version: null
 status: null

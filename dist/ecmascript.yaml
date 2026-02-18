@@ -1,3 +1,61 @@
+routing:
+  name: ecmascript
+  description: Provides expert guidance on all aspects of ECMAScript/JavaScript development.
+  domain: software-development
+  status: draft
+  standalone: true
+  capabilities:
+    - Write code
+    - Review code
+    - Debug
+    - Refactor
+    - Architect
+    - Test
+    - Optimize
+    - Dependencies
+    - Security review
+    - Migration
+    - Type system
+    - Error handling
+    - Observability
+    - Internationalization
+    - Monorepo management
+  delegations: null
+  keywords:
+    - '18'
+    - architect
+    - bun
+    - code
+    - debug
+    - deno
+    - dependencies
+    - development
+    - ecmascript
+    - error
+    - es2024
+    - es5
+    - handling
+    - internationalization
+    - javascript
+    - js
+    - lts
+    - management
+    - migration
+    - monorepo
+    - node
+    - observability
+    - optimize
+    - refactor
+    - review
+    - security
+    - software
+    - software-development
+    - system
+    - test
+    - type
+    - typescript
+    - versions
+    - write
 name: ECMAScript Expert
 version: 0.3.0
 status: draft

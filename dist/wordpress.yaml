@@ -1,3 +1,153 @@
+routing:
+  name: wordpress
+  description: Provides expert guidance on WordPress site management and administration.
+  domain: site-management
+  status: draft
+  standalone: true
+  capabilities:
+    - Content management
+    - User management
+    - Plugin management
+    - Theme management
+    - Site configuration
+    - Privacy configuration
+    - Security hardening
+    - Performance optimization
+    - Accessibility
+    - Backup/recovery
+    - Updates/maintenance
+    - Multisite
+    - Troubleshooting
+    - SEO configuration
+    - WP-CLI operations
+    - Domain/DNS guidance
+    - E-commerce admin
+  delegations:
+    - capability: Theme development
+      target: WordPress Developer
+    - capability: Plugin development
+      target: WordPress Developer
+    - capability: Custom PHP code
+      target: PHP Expert
+    - capability: Database queries
+      target: Database Expert
+    - capability: Server configuration
+      target: DevOps Agent
+    - capability: Hosting setup
+      target: DevOps Agent
+    - capability: Content strategy
+      target: Content Strategist
+  keywords:
+    - access
+    - accessibility
+    - admin
+    - administration
+    - api
+    - backup
+    - basics
+    - block
+    - browser
+    - bulk
+    - caching
+    - capabilities
+    - ccpa
+    - cdn
+    - certificate
+    - checking
+    - commands
+    - common
+    - compatibility
+    - compliance
+    - configuration
+    - consent
+    - considerations
+    - content
+    - controls
+    - cookie
+    - core
+    - customization
+    - customizer
+    - dashboard
+    - database
+    - directory
+    - disabling
+    - dns
+    - domain
+    - e-commerce
+    - ecosystem
+    - editor
+    - email
+    - file
+    - gateway
+    - gdpr
+    - hardening
+    - headers
+    - image
+    - integration
+    - integrity
+    - interface
+    - legacy
+    - listing
+    - login
+    - maintenance
+    - management
+    - migration
+    - monitoring
+    - multisite
+    - network
+    - object
+    - operations
+    - optimization
+    - options
+    - page
+    - patterns
+    - payment
+    - performance
+    - permission
+    - plugin
+    - pointing
+    - policy
+    - popular
+    - prefix
+    - prevention
+    - privacy
+    - procedures
+    - protection
+    - recovery
+    - rest
+    - roles
+    - rollback
+    - routing
+    - scripting
+    - security
+    - seo
+    - settings
+    - setup
+    - shipping
+    - site
+    - site-management
+    - ssl
+    - staging-to-production
+    - support
+    - supported
+    - system
+    - table
+    - testing
+    - theme
+    - tools
+    - troubleshooting
+    - types
+    - updates
+    - user
+    - vetting
+    - vitals
+    - wcag
+    - web
+    - woocommerce
+    - wordpress
+    - workflows
+    - wp-cli
+    - xml-rpc
 name: WordPress Expert
 version: 0.3.0
 status: draft

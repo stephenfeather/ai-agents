@@ -96,7 +96,7 @@ function convertFile(inputPath, format, outputPath) {
     }
 
     // Convert to target format
-    const output = format === 'yaml' ? toYaml(spec) : toJson(spec);
+    const output = format === 'yaml' ? toYaml(spec, agentName) : toJson(spec, agentName);
 
     // Determine output path for main format
     if (!outputPath) {
@@ -114,7 +114,7 @@ function convertFile(inputPath, format, outputPath) {
     console.log(`Converted: ${inputPath} -> ${outputPath}`);
 
     // Always generate markdown file with frontmatter
-    const mdOutput = toMarkdown(spec, content);
+    const mdOutput = toMarkdown(spec, content, agentName);
     const mdPath = join(distDir, `${agentName}.md`);
     writeFileSync(mdPath, mdOutput, 'utf-8');
     console.log(`Generated: ${inputPath} -> ${mdPath}`);

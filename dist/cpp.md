@@ -1,9 +1,67 @@
 ---
-name: c/c++-expert
+name: cpp
 description: Develops firmware, embedded systems, and systems-level C/C++ code with precision and correctness.
-model:
-tools:
+domain: systems-programming
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Write firmware
+  - ESP-IDF development
+  - Pico SDK development
+  - Arduino framework
+  - RTOS programming
+  - Peripheral drivers
+  - Memory management
+  - Build configuration
+  - Systems programming
+  - Debugging
+  - Performance optimization
+  - Concurrency
+  - Template metaprogramming
+delegations:
+  - capability: CircuitPython/MicroPython
+    target: Embedded Python Expert
+  - capability: Circuit design
+    target: Electronics Expert
+  - capability: CI/CD pipelines
+    target: DevOps Agent
+  - capability: Cloud/backend
+    target: Backend Agent
+keywords:
+  - arduino
+  - build
+  - code
+  - concurrency
+  - configuration
+  - correctness
+  - cpp
+  - debugging
+  - development
+  - develops
+  - drivers
+  - embedded
+  - esp-idf
+  - firmware
+  - framework
+  - management
+  - memory
+  - metaprogramming
+  - optimization
+  - performance
+  - peripheral
+  - pico
+  - precision
+  - programming
+  - rtos
+  - sdk
+  - systems
+  - systems-level
+  - systems-programming
+  - template
+  - write
 ---
 
 # Agent Spec: C/C++ Expert

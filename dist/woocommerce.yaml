@@ -1,3 +1,159 @@
+routing:
+  name: woocommerce
+  description: Provides expert guidance on WooCommerce store management and configuration.
+  domain: e-commerce
+  status: draft
+  standalone: true
+  capabilities:
+    - Product management
+    - Inventory management
+    - Order management
+    - Customer management
+    - Shipping configuration
+    - Payment gateways
+    - Tax configuration
+    - Coupon management
+    - Reports/Analytics
+    - Email configuration
+    - Store settings
+    - Extension management
+    - Subscriptions
+    - Memberships
+    - Bookings
+    - Data import/export
+    - Privacy/Compliance
+    - Marketing integration
+    - SEO configuration
+    - Performance tuning
+    - Troubleshooting
+  delegations: null
+  keywords:
+    - accounts
+    - action
+    - admin
+    - analytics
+    - basics
+    - bloat
+    - bookings
+    - bot
+    - brute
+    - caching
+    - cancellation
+    - ccpa
+    - classes
+    - cleanup
+    - commerce
+    - compatibility
+    - compliance
+    - configuration
+    - connections
+    - consent
+    - cookie
+    - coupon
+    - credential
+    - customer
+    - dashboard
+    - data
+    - database
+    - discount
+    - dunning
+    - e-commerce
+    - email
+    - export
+    - extension
+    - extensions
+    - facebook
+    - failed
+    - feed
+    - fees
+    - flows
+    - force
+    - gateway
+    - gateways
+    - gdpr
+    - generation
+    - google
+    - handling
+    - hpos
+    - identification
+    - import
+    - integration
+    - interface
+    - international
+    - inventory
+    - lifecycle
+    - management
+    - marketing
+    - memberships
+    - meta
+    - method
+    - methods
+    - migration
+    - mode
+    - monitoring
+    - multi-currency
+    - notes
+    - object
+    - order
+    - page
+    - payment
+    - performance
+    - periods
+    - pixel
+    - platform
+    - platforms
+    - policies
+    - policy
+    - popular
+    - privacy
+    - procedures
+    - processing
+    - product
+    - products
+    - proration
+    - protection
+    - refunds
+    - renewal
+    - reports
+    - requirements
+    - retention
+    - retry
+    - rules
+    - sandbox
+    - scheduler
+    - schedules
+    - schema
+    - selling
+    - seo
+    - session
+    - settings
+    - setup
+    - shipping
+    - sign-up
+    - ssl
+    - statuses
+    - stock
+    - store
+    - structured
+    - subscriber
+    - subscription
+    - subscriptions
+    - suspension
+    - system
+    - tax
+    - templates
+    - test
+    - testing
+    - tls
+    - transient
+    - trial
+    - troubleshooting
+    - tuning
+    - types
+    - updates
+    - vetting
+    - woocommerce
+    - zones
 name: WooCommerce Expert
 version: 0.2.0
 status: draft

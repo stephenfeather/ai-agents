@@ -1,9 +1,16 @@
 ---
-name:
-description:
-model:
-tools:
-version:
+name: devops
+description: null
+domain: null
+status: null
+model: null
+tools: null
+version: null
+standalone: null
+capabilities: null
+delegations: null
+keywords:
+  - devops
 ---
 
 # DevOps Expert Agent Specification

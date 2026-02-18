@@ -1,9 +1,125 @@
 ---
-name: database-expert
+name: database
 description: Provides expert guidance on database design, queries, and optimization.
-model:
-tools:
+domain: databases
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Schema design
+  - Query writing
+  - Query optimization
+  - Index design
+  - Migrations
+  - Constraints
+  - Views
+  - Stored procedures
+  - Transactions
+  - Performance tuning
+  - Backup/recovery
+  - Security
+  - Troubleshooting
+  - Partitioning
+  - High availability
+  - Data lifecycle
+delegations:
+  - capability: NoSQL databases
+    target: NoSQL Agent
+  - capability: ORM-specific issues
+    target: Language Experts
+  - capability: Database hosting
+    target: Cloud Agent
+  - capability: Server administration
+    target: DevOps Agent
+  - capability: Data engineering
+    target: Data Engineering Agent
+  - capability: Vector databases
+    target: AI/ML Agent
+  - capability: Data privacy/compliance
+    target: Data Governance Expert
+keywords:
+  - advanced
+  - analyze
+  - appropriate
+  - autovacuum
+  - availability
+  - backup
+  - basics
+  - cases
+  - concurrency
+  - connection
+  - constraints
+  - ctes
+  - data
+  - database
+  - databases
+  - datasets
+  - design
+  - embedded
+  - engines
+  - execution
+  - extensions
+  - file
+  - full-text
+  - functions
+  - handling
+  - high
+  - index
+  - innodb
+  - isolation
+  - keyset
+  - large
+  - levels
+  - lifecycle
+  - limitations
+  - locking
+  - log
+  - materialized
+  - migrations
+  - mode
+  - myisam
+  - mysql-specific
+  - normalization
+  - offset
+  - optimization
+  - pagination
+  - partitioning
+  - patterns
+  - performance
+  - plans
+  - pooling
+  - portable
+  - procedures
+  - queries
+  - query
+  - recovery
+  - recursive
+  - replication
+  - schema
+  - search
+  - security
+  - slow
+  - sql
+  - standards
+  - storage
+  - stored
+  - strategies
+  - syntax
+  - time
+  - transaction
+  - transactions
+  - troubleshooting
+  - tuning
+  - types
+  - use
+  - vacuum
+  - views
+  - wal
+  - window
+  - writing
+  - zone
 ---
 
 # Agent Spec: Database Expert

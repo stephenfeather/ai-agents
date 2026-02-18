@@ -1,9 +1,63 @@
 ---
-name: electronics-expert
+name: electronics
 description: Designs circuits and guides prototyping for hobbyist and maker electronics projects.
-model:
-tools:
+domain: electronics
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Circuit design
+  - Schematic review
+  - Component selection
+  - Power circuits
+  - Motor control
+  - Signal conditioning
+  - Prototyping guidance
+  - PCB basics
+  - SMD techniques
+  - Circuit simulation
+  - Calculations
+  - Troubleshooting
+  - Protection circuits
+delegations:
+  - capability: Microcontroller code
+    target: Embedded Python Expert
+  - capability: RF/wireless design
+    target: RF Expert
+  - capability: High-power systems
+    target: Power Systems Expert
+  - capability: Enclosures/mechanical
+    target: CAD/Mechanical Agent
+keywords:
+  - basics
+  - calculations
+  - circuit
+  - circuits
+  - component
+  - conditioning
+  - control
+  - design
+  - designs
+  - electronics
+  - guides
+  - hobbyist
+  - maker
+  - motor
+  - pcb
+  - power
+  - projects
+  - protection
+  - prototyping
+  - review
+  - schematic
+  - selection
+  - signal
+  - simulation
+  - smd
+  - techniques
+  - troubleshooting
 ---
 
 # Agent Spec: Electronics Expert

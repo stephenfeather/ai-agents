@@ -1,9 +1,78 @@
 ---
-name: openai-agents-sdk-expert
+name: openai-agents-sdk
 description: Builds AI agents using the OpenAI Agents SDK with tools, handoffs, guardrails, and multi-agent orchestration.
-model:
-tools:
+domain: llm-applications
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - Agent definition
+  - Tool registration
+  - Handoffs
+  - Guardrails
+  - Multi-agent orchestration
+  - Runner execution
+  - Context management
+  - Tracing
+  - Model configuration
+  - Hosted tools
+  - Streaming
+  - Error handling
+delegations:
+  - capability: Python async
+    target: Python Expert
+  - capability: OpenAI API
+    target: LLM Provider Agent
+  - capability: Deployment
+    target: DevOps Expert
+keywords:
+  - agent
+  - agents
+  - ai
+  - applications
+  - builds
+  - configuration
+  - context
+  - creation
+  - decorator
+  - definition
+  - error
+  - events
+  - execution
+  - function
+  - guardrails
+  - handling
+  - handoff
+  - handoffs
+  - hosted
+  - input
+  - llm
+  - llm-applications
+  - management
+  - mcp
+  - model
+  - multi-agent
+  - observability
+  - openai
+  - openai-agents-sdk
+  - orchestration
+  - output
+  - partial
+  - passing
+  - patterns
+  - registration
+  - responses
+  - runner
+  - sdk
+  - specialized
+  - state
+  - streaming
+  - tool
+  - tools
+  - tracing
+  - validation
 ---
 
 # Agent Spec: OpenAI Agents SDK Expert

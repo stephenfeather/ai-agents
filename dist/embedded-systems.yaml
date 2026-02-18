@@ -1,3 +1,15 @@
+routing:
+  name: embedded-systems
+  description: null
+  domain: null
+  status: null
+  standalone: null
+  capabilities: null
+  delegations: null
+  keywords:
+    - embedded
+    - embedded-systems
+    - systems
 name: null
 version: null
 status: null

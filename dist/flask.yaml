@@ -1,3 +1,13 @@
+routing:
+  name: flask
+  description: null
+  domain: null
+  status: null
+  standalone: null
+  capabilities: null
+  delegations: null
+  keywords:
+    - flask
 name: null
 version: null
 status: null

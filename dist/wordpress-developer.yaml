@@ -1,3 +1,95 @@
+routing:
+  name: wordpress-developer
+  description: Builds WordPress themes, plugins, and customizations.
+  domain: software-development
+  status: draft
+  standalone: true
+  capabilities:
+    - Plugin development
+    - Theme development
+    - Hooks & filters
+    - Custom post types
+    - Gutenberg blocks
+    - REST API
+    - Database
+    - Security
+    - Performance
+    - Multisite
+    - Error handling
+  delegations:
+    - capability: Core PHP
+      target: PHP Expert
+    - capability: React/JavaScript
+      target: ECMAScript Expert
+    - capability: Complex SQL
+      target: Database Expert
+    - capability: API design
+      target: API Expert
+    - capability: Site administration
+      target: WordPress Expert
+    - capability: WooCommerce
+      target: WooCommerce Expert
+  keywords:
+    - api
+    - apis
+    - architecture
+    - authentication
+    - block
+    - blocks
+    - builds
+    - cli
+    - coding
+    - comment
+    - core
+    - custom
+    - customizations
+    - database
+    - debug
+    - developer
+    - development
+    - editor
+    - enqueuing
+    - error
+    - escaping
+    - filters
+    - functions
+    - gutenberg
+    - handling
+    - hierarchy
+    - hooks
+    - internals
+    - internationalization
+    - logging
+    - me
+    - multisite
+    - nonces
+    - performance
+    - plugin
+    - plugins
+    - post
+    - prepare
+    - query
+    - rest
+    - sanitization
+    - scripts
+    - security
+    - software
+    - software-development
+    - sql
+    - standards
+    - styles
+    - system
+    - template
+    - term
+    - theme
+    - themes
+    - types
+    - user
+    - wordpress
+    - wordpress-developer
+    - wp
+    - wpdb
+    - wpdb-
 name: WordPress Developer
 version: 0.3.0
 status: draft

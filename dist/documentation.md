@@ -1,9 +1,221 @@
 ---
-name: documentation-agent
+name: documentation
 description: Creates and maintains technical and user documentation for software projects.
-model:
-tools:
+domain: technical-writing
+status: draft
+model: null
+tools: null
 version: 0.3.0
+standalone: true
+capabilities:
+  - README files
+  - API documentation
+  - Code documentation
+  - Architecture docs
+  - User guides
+  - FAQs
+  - Changelogs
+  - Contributing guides
+  - Installation guides
+  - Diagrams
+  - Style guides
+  - Migration guides
+  - Technical writing review
+  - Content gap analysis
+  - Onboarding/Quickstart
+  - Error documentation
+  - Version management
+  - Security docs
+  - Doc review prep
+delegations:
+  - capability: Code implementation
+    target: Language Experts
+  - capability: API design
+    target: API Agent
+  - capability: Marketing copy
+    target: Marketing Agent
+  - capability: Legal docs
+    target: Legal Agent
+keywords:
+  - alignment
+  - analysis
+  - analytics
+  - api
+  - api-specific
+  - architecture
+  - areas
+  - aria
+  - asciidoc
+  - audience
+  - audits
+  - auto-publish
+  - best
+  - branching
+  - canonical
+  - causes
+  - changelog
+  - changelogs
+  - ci
+  - classification
+  - code
+  - color
+  - common
+  - comparing
+  - compatibility
+  - configurations
+  - conflict
+  - consistency
+  - content
+  - contrast
+  - contributing
+  - conventions
+  - creates
+  - cross-references
+  - data
+  - decision
+  - deploy
+  - deprecation
+  - descriptions
+  - design
+  - diagrams
+  - disclosure
+  - doc
+  - doc-to-code
+  - docs
+  - docs-as-code
+  - documentation
+  - engine-friendly
+  - eol
+  - error
+  - example
+  - faq
+  - faqs
+  - feedback
+  - files
+  - flavors
+  - flow
+  - focus
+  - formats
+  - freeze
+  - gap
+  - gaps
+  - generation
+  - generators
+  - git
+  - guide
+  - guides
+  - handling
+  - hierarchy
+  - hooks
+  - http
+  - identify
+  - implementation
+  - information
+  - installation
+  - integration
+  - internal
+  - keyboard
+  - labels
+  - landmarks
+  - languages
+  - limit
+  - links
+  - logic
+  - maintains
+  - management
+  - mappings
+  - markdown
+  - markup
+  - masking
+  - matrices
+  - mechanisms
+  - mermaid
+  - metadata
+  - migration
+  - multi-version
+  - navigation
+  - notes
+  - notices
+  - onboarding
+  - optimization
+  - organization
+  - paths
+  - patterns
+  - pii
+  - pipeline
+  - plantuml
+  - policies
+  - policy
+  - pr
+  - practices
+  - pre-commit
+  - prep
+  - projects
+  - public
+  - query
+  - quickstart
+  - rate
+  - reader
+  - readme
+  - recommendations
+  - records
+  - redaction
+  - redirect
+  - references
+  - regular
+  - release
+  - requirements
+  - requiring
+  - resolution
+  - responses
+  - restructuredtext
+  - retry
+  - review
+  - rules
+  - scenarios
+  - screen
+  - search
+  - secrets
+  - security
+  - semantic
+  - sensitive
+  - sitemap
+  - sites
+  - skip
+  - software
+  - standards
+  - status
+  - steps
+  - strategies
+  - structure
+  - structured
+  - structures
+  - style
+  - support
+  - tags
+  - technical
+  - technical-writing
+  - templates
+  - testing
+  - ticket
+  - timelines
+  - timeout
+  - triggers
+  - troubleshooting
+  - tutorial
+  - underdocumented
+  - updates
+  - url
+  - user
+  - validation
+  - version
+  - versioned
+  - versioning
+  - versions
+  - vs
+  - vulnerability
+  - workflows
+  - writing
 ---
 
 # Agent Spec: Documentation Agent

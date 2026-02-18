@@ -1,9 +1,65 @@
 ---
-name: langchain-expert
+name: langchain
 description: Builds LLM-powered applications using LangChain, including chains, agents, memory, and retrieval systems.
-model:
-tools:
+domain: llm-applications
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Chain composition
+  - Prompt engineering
+  - Memory systems
+  - Document loading
+  - Retrieval
+  - Agent design
+  - Output parsing
+  - Streaming
+  - Tracing
+  - LangGraph
+  - LangServe
+  - Evaluation
+  - Security
+delegations:
+  - capability: Vector DB setup
+    target: Vector DB Expert
+  - capability: LLM specifics
+    target: LLM Provider Agent
+  - capability: Python core
+    target: Python Expert
+  - capability: Deployment
+    target: DevOps Expert
+  - capability: Frontend
+    target: Frontend Agent
+keywords:
+  - agent
+  - agents
+  - applications
+  - builds
+  - chain
+  - chains
+  - composition
+  - design
+  - document
+  - engineering
+  - evaluation
+  - langchain
+  - langgraph
+  - langserve
+  - llm
+  - llm-applications
+  - llm-powered
+  - loading
+  - memory
+  - output
+  - parsing
+  - prompt
+  - retrieval
+  - security
+  - streaming
+  - systems
+  - tracing
 ---
 
 # Agent Spec: LangChain Expert

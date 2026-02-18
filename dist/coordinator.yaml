@@ -1,3 +1,49 @@
+routing:
+  name: coordinator
+  description: Orchestrates multi-agent workflows and delegates tasks to specialist agents.
+  domain: orchestration
+  status: draft
+  standalone: null
+  capabilities:
+    - Task decomposition
+    - Agent discovery
+    - Complexity assessment
+    - Progress tracking
+    - Conflict resolution
+    - Result synthesis
+    - Parallel orchestration
+    - Failure handling
+    - State management
+  delegations:
+    - capability: Implementation
+      target: Specialist Agents
+  keywords:
+    - agent
+    - agents
+    - assessment
+    - complexity
+    - conflict
+    - coordinator
+    - decomposition
+    - delegates
+    - discovery
+    - failure
+    - handling
+    - management
+    - multi-agent
+    - orchestrates
+    - orchestration
+    - parallel
+    - progress
+    - resolution
+    - result
+    - specialist
+    - state
+    - synthesis
+    - task
+    - tasks
+    - tracking
+    - workflows
 name: Coordinator Agent
 version: 0.4.0
 status: draft

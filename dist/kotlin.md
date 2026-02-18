@@ -1,9 +1,79 @@
 ---
-name: kotlin-expert
+name: kotlin
 description: Develops Android applications using modern Kotlin and Jetpack Compose.
-model:
-tools:
+domain: mobile-development
+status: draft
+model: null
+tools: null
 version: 0.3.0
+standalone: true
+capabilities:
+  - Write Kotlin
+  - Jetpack Compose
+  - Architecture design
+  - Coroutines & Flow
+  - Dependency injection
+  - Data persistence
+  - Networking
+  - Ktor server
+  - Functional programming
+  - DSL design
+  - Kotlin Multiplatform
+  - Navigation
+  - Testing
+  - Build configuration
+  - Performance
+  - Accessibility
+  - Security
+  - Device diversity
+  - App distribution
+delegations:
+  - capability: iOS/Swift
+    target: iOS/Swift Expert
+  - capability: Backend APIs
+    target: API Agent
+  - capability: Java interop
+    target: Java Expert
+  - capability: CI/CD
+    target: DevOps Agent
+keywords:
+  - accessibility
+  - android
+  - app
+  - applications
+  - architecture
+  - build
+  - compose
+  - configuration
+  - coroutines
+  - data
+  - dependency
+  - design
+  - development
+  - develops
+  - device
+  - distribution
+  - diversity
+  - dsl
+  - flow
+  - functional
+  - injection
+  - jetpack
+  - kotlin
+  - ktor
+  - mobile
+  - mobile-development
+  - modern
+  - multiplatform
+  - navigation
+  - networking
+  - performance
+  - persistence
+  - programming
+  - security
+  - server
+  - testing
+  - write
 ---
 
 # Agent Spec: Kotlin Expert

@@ -350,6 +350,95 @@ export function splitSections(content) {
 }
 
 /**
+ * Stop words filtered out when deriving keywords from free text
+ */
+const STOP_WORDS = new Set([
+  'a', 'an', 'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+  'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'be',
+  'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will',
+  'would', 'could', 'should', 'may', 'might', 'shall', 'can', 'need',
+  'must', 'it', 'its', 'this', 'that', 'these', 'those', 'all', 'each',
+  'every', 'both', 'few', 'more', 'most', 'other', 'some', 'such', 'no',
+  'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just',
+  'about', 'above', 'after', 'again', 'against', 'also', 'any', 'because',
+  'before', 'below', 'between', 'during', 'here', 'how', 'into', 'out',
+  'over', 'then', 'there', 'through', 'under', 'up', 'what', 'when',
+  'where', 'which', 'while', 'who', 'whom', 'why', 'down', 'off',
+  'provides', 'expert', 'guidance', 'aspects', 'using', 'including',
+  'based', 'focused', 'across', 'ensures', 'handles', 'manages'
+]);
+
+/**
+ * Extract significant words from a text string, filtering stop words
+ */
+function extractSignificantWords(text) {
+  if (!text) return [];
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, ' ')
+    .split(/\s+/)
+    .filter(w => w.length > 1 && !STOP_WORDS.has(w));
+}
+
+/**
+ * Derive routing keywords from a parsed spec and agent directory name.
+ *
+ * Sources:
+ *  - agentName tokens (split on hyphens, plus the full slug)
+ *  - identity.role significant words
+ *  - domain value and its tokens
+ *  - direct (non-delegated) capability names
+ *  - knowledge inScope items (text before first parenthesis/colon, capped at 60 chars)
+ *
+ * Returns a deduplicated, lowercased, sorted array.
+ */
+export function deriveKeywords(spec, agentName) {
+  const words = new Set();
+
+  // 1. Agent directory name tokens
+  if (agentName) {
+    const slug = agentName.toLowerCase();
+    words.add(slug);
+    slug.split('-').filter(t => t.length > 1).forEach(t => words.add(t));
+  }
+
+  // 2. Identity role significant words
+  if (spec.identity?.role) {
+    extractSignificantWords(spec.identity.role).forEach(w => words.add(w));
+  }
+
+  // 3. Domain value and tokens
+  if (spec.domain) {
+    const domain = spec.domain.toLowerCase();
+    words.add(domain);
+    domain.split('-').filter(t => t.length > 1).forEach(t => words.add(t));
+  }
+
+  // 4. Direct capability names (non-delegated)
+  if (spec.capabilities && spec.capabilities.length > 0) {
+    spec.capabilities
+      .filter(c => !c.delegatesTo)
+      .forEach(c => {
+        if (c.capability) {
+          extractSignificantWords(c.capability).forEach(w => words.add(w));
+        }
+      });
+  }
+
+  // 5. Knowledge inScope items (text before first parenthesis/colon, capped at 60 chars)
+  if (spec.knowledge?.inScope) {
+    spec.knowledge.inScope.forEach(item => {
+      // Take text before first ( or :
+      let text = item.split(/[(:]/)[0].trim();
+      if (text.length > 60) text = text.slice(0, 60);
+      extractSignificantWords(text).forEach(w => words.add(w));
+    });
+  }
+
+  return [...words].sort();
+}
+
+/**
  * Parse a complete spec from Markdown content
  */
 export function parseSpec(content) {

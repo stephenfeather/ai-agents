@@ -1,9 +1,52 @@
 ---
-name: coordinator-agent
+name: coordinator
 description: Orchestrates multi-agent workflows and delegates tasks to specialist agents.
-model:
-tools:
+domain: orchestration
+status: draft
+model: null
+tools: null
 version: 0.4.0
+standalone: null
+capabilities:
+  - Task decomposition
+  - Agent discovery
+  - Complexity assessment
+  - Progress tracking
+  - Conflict resolution
+  - Result synthesis
+  - Parallel orchestration
+  - Failure handling
+  - State management
+delegations:
+  - capability: Implementation
+    target: Specialist Agents
+keywords:
+  - agent
+  - agents
+  - assessment
+  - complexity
+  - conflict
+  - coordinator
+  - decomposition
+  - delegates
+  - discovery
+  - failure
+  - handling
+  - management
+  - multi-agent
+  - orchestrates
+  - orchestration
+  - parallel
+  - progress
+  - resolution
+  - result
+  - specialist
+  - state
+  - synthesis
+  - task
+  - tasks
+  - tracking
+  - workflows
 ---
 
 # Agent Spec: Coordinator Agent

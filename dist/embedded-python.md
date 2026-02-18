@@ -1,9 +1,82 @@
 ---
-name: embedded-python-expert
+name: embedded-python
 description: Develops CircuitPython and MicroPython applications for microcontroller-based projects.
-model:
-tools:
+domain: embedded-systems
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Write code
+  - GPIO control
+  - I2C/SPI/UART
+  - PWM/ADC/DAC
+  - WiFi/BLE
+  - Sensor integration
+  - Display drivers
+  - Memory optimization
+  - Power management
+  - OTA updates
+  - REPL workflows
+  - Watchdog timer
+  - Filesystem management
+  - Error handling
+  - Timekeeping
+  - RP2040 PIO
+delegations:
+  - capability: Circuit design
+    target: Electronics Agent
+  - capability: Standard Python
+    target: Python Expert
+  - capability: Low-level firmware
+    target: C/C++ Expert
+  - capability: Documentation
+    target: Documentation Agent
+keywords:
+  - adc
+  - applications
+  - ble
+  - circuitpython
+  - code
+  - control
+  - dac
+  - develops
+  - display
+  - drivers
+  - embedded
+  - embedded-python
+  - embedded-systems
+  - error
+  - filesystem
+  - gpio
+  - handling
+  - i2c
+  - integration
+  - management
+  - memory
+  - microcontroller-based
+  - micropython
+  - optimization
+  - ota
+  - pio
+  - power
+  - projects
+  - pwm
+  - python
+  - repl
+  - rp2040
+  - sensor
+  - spi
+  - systems
+  - timekeeping
+  - timer
+  - uart
+  - updates
+  - watchdog
+  - wifi
+  - workflows
+  - write
 ---
 
 # Agent Spec: Embedded Python Expert

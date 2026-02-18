@@ -1,3 +1,68 @@
+routing:
+  name: woocommerce-developer
+  description: Develops WooCommerce extensions, integrations, and theme customizations.
+  domain: e-commerce-development
+  status: draft
+  standalone: true
+  capabilities:
+    - Payment gateways
+    - Shipping methods
+    - Product types
+    - Order workflows
+    - Cart/checkout
+    - Subscriptions
+    - Bookings
+    - Memberships
+    - REST API
+    - Store API
+    - Webhooks
+    - Blocks
+    - Templates
+    - HPOS
+    - Privacy/GDPR
+  delegations:
+    - capability: General WordPress
+      target: WordPress Developer
+    - capability: Store management
+      target: WooCommerce Expert
+    - capability: Core PHP
+      target: PHP Expert
+    - capability: Database design
+      target: Database Expert
+  keywords:
+    - api
+    - blocks
+    - bookings
+    - cart
+    - checkout
+    - commerce
+    - customizations
+    - developer
+    - development
+    - develops
+    - e-commerce-development
+    - extensions
+    - gateways
+    - gdpr
+    - hpos
+    - integrations
+    - memberships
+    - methods
+    - order
+    - payment
+    - privacy
+    - product
+    - rest
+    - shipping
+    - store
+    - subscriptions
+    - templates
+    - theme
+    - types
+    - webhooks
+    - woocommerce
+    - woocommerce-developer
+    - workflows
 name: WooCommerce Developer
 version: 0.2.0
 status: draft

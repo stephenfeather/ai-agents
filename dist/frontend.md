@@ -1,9 +1,69 @@
 ---
-name: frontend-expert
-description: Architects frontend systems with focus on HTML/CSS, accessibility, responsive design, performance, and cross-browser compatibility.
-model:
-tools:
+name: frontend
+description: >-
+  Architects frontend systems with focus on HTML/CSS, accessibility, responsive design, performance, and cross-browser
+  compatibility.
+domain: web-development
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - HTML architecture
+  - CSS systems
+  - Responsive design
+  - Accessibility
+  - Browser compatibility
+  - Performance
+  - CSS frameworks
+  - Build tooling
+  - Design systems
+  - Animations
+  - Forms
+  - Typography
+delegations:
+  - capability: JavaScript logic
+    target: ECMAScript Expert
+  - capability: Framework specifics
+    target: Framework Specialists
+  - capability: UX decisions
+    target: UX Agent
+  - capability: Backend integration
+    target: API Agent
+keywords:
+  - accessibility
+  - animations
+  - architects
+  - architecture
+  - browser
+  - build
+  - compatibility
+  - cross-browser
+  - css
+  - design
+  - development
+  - devtools
+  - document
+  - elements
+  - focus
+  - forms
+  - frameworks
+  - frontend
+  - html
+  - html5
+  - layout
+  - methodologies
+  - performance
+  - responsive
+  - semantic
+  - structure
+  - systems
+  - tooling
+  - tools
+  - typography
+  - web
+  - web-development
 ---
 
 # Agent Spec: Frontend Expert

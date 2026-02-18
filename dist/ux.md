@@ -1,9 +1,69 @@
 ---
-name: ux-expert
-description: Designs user experiences through research, information architecture, usability evaluation, and UX writing, providing guidance for implementation.
-model:
-tools:
+name: ux
+description: >-
+  Designs user experiences through research, information architecture, usability evaluation, and UX writing, providing
+  guidance for implementation.
+domain: user-experience
+status: draft
+model: null
+tools: null
 version: 0.1.0
+standalone: true
+capabilities:
+  - User research
+  - Information architecture
+  - Wireframing
+  - Usability evaluation
+  - UX writing
+  - Journey mapping
+  - Persona development
+  - A/B testing
+  - Design systems
+  - Accessibility review
+  - Stakeholder alignment
+  - Competitive analysis
+delegations:
+  - capability: Frontend implementation
+    target: Frontend Agent
+  - capability: Interactive prototypes
+    target: ECMAScript Expert
+  - capability: Documentation
+    target: Documentation Agent
+  - capability: Visual design
+    target: Visual Design Agent
+keywords:
+  - accessibility
+  - alignment
+  - analysis
+  - architecture
+  - competitive
+  - design
+  - designs
+  - development
+  - evaluation
+  - experience
+  - experiences
+  - heuristics
+  - implementation
+  - information
+  - interaction
+  - journey
+  - mapping
+  - methods
+  - patterns
+  - persona
+  - providing
+  - research
+  - review
+  - stakeholder
+  - systems
+  - testing
+  - usability
+  - user
+  - user-experience
+  - ux
+  - wireframing
+  - writing
 ---
 
 # Agent Spec: UX Expert

@@ -1,3 +1,62 @@
+routing:
+  name: swift
+  description: Develops applications across Apple platforms using Swift and SwiftUI.
+  domain: apple-platforms
+  status: draft
+  standalone: true
+  capabilities:
+    - Write Swift
+    - SwiftUI
+    - UIKit interop
+    - AppKit
+    - Swift Concurrency
+    - Combine
+    - SwiftData
+    - Core Data
+    - Networking
+    - Architecture
+    - Testing
+    - Accessibility
+    - Performance
+    - Debugging
+    - Localization
+    - Security
+    - StoreKit
+  delegations:
+    - capability: Android/Kotlin
+      target: Kotlin Expert
+    - capability: Backend APIs
+      target: API Agent
+    - capability: Low-level/Metal
+      target: C/C++ Expert
+    - capability: CI/CD
+      target: DevOps Agent
+  keywords:
+    - accessibility
+    - appkit
+    - apple
+    - apple-platforms
+    - applications
+    - architecture
+    - combine
+    - concurrency
+    - core
+    - data
+    - debugging
+    - develops
+    - interop
+    - localization
+    - networking
+    - performance
+    - platforms
+    - security
+    - storekit
+    - swift
+    - swiftdata
+    - swiftui
+    - testing
+    - uikit
+    - write
 name: Swift Expert
 version: 0.2.0
 status: draft

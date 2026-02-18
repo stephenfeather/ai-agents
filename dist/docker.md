@@ -1,9 +1,66 @@
 ---
-name: docker-expert
+name: docker
 description: Provides expert guidance on Docker containerization, image optimization, and container management.
-model:
-tools:
+domain: containerization
+status: draft
+model: null
+tools: null
 version: 0.2.0
+standalone: true
+capabilities:
+  - Dockerfile authoring
+  - Multi-stage builds
+  - Multi-platform builds
+  - Image management
+  - Container operations
+  - Docker Compose
+  - Networking
+  - Volumes/storage
+  - Registry management
+  - Security hardening
+  - Supply chain security
+  - Performance tuning
+  - Debugging
+  - Build optimization
+  - Docker CLI
+delegations:
+  - capability: Kubernetes
+    target: Kubernetes Agent
+  - capability: Cloud container services
+    target: Cloud Agent
+  - capability: CI/CD pipelines
+    target: DevOps Agent
+  - capability: Application code
+    target: Language Experts
+  - capability: Server/VM configuration
+    target: DevOps Agent
+keywords:
+  - authoring
+  - build
+  - builds
+  - chain
+  - cli
+  - compose
+  - container
+  - containerization
+  - debugging
+  - docker
+  - dockerfile
+  - hardening
+  - image
+  - management
+  - multi-platform
+  - multi-stage
+  - networking
+  - operations
+  - optimization
+  - performance
+  - registry
+  - security
+  - storage
+  - supply
+  - tuning
+  - volumes
 ---
 
 # Agent Spec: Docker Expert
