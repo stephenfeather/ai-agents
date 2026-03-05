@@ -43,7 +43,10 @@ ai-agents/
 ├── SPEC-TEMPLATE.md     # Blank template for new agents
 ├── ai-agent-php/        # PHP Expert (reference implementation)
 ├── ai-agent-*/          # Additional agent specifications
-└── dist/                # Compiled outputs (generated)
+└── dist/                # Agent-specific compiled outputs (generated)
+    ├── <agent>.yaml     # YAML format
+    ├── <agent>.json     # JSON format
+    └── <agent>.md       # Markdown format with YAML frontmatter
 ```
 
 ## Spec Components
